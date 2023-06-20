@@ -22,6 +22,9 @@ services:
     
   db:
     image: mysql:8.0.23
+    ports:
+      - "3306:3306"
+      - "33060:33060"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_DATABASE: "cosmic"

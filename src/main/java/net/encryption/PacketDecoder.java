@@ -5,12 +5,17 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import net.netty.InvalidPacketHeaderException;
+import net.netty.LoginServerInitializer;
 import net.packet.ByteBufInPacket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class PacketDecoder extends ReplayingDecoder<Void> {
     private final MapleAESOFB receiveCypher;
+
+    private static final Logger log = LoggerFactory.getLogger(PacketDecoder.class);
 
     public PacketDecoder(MapleAESOFB receiveCypher) {
         this.receiveCypher = receiveCypher;
@@ -19,6 +24,8 @@ public class PacketDecoder extends ReplayingDecoder<Void> {
     @Override
     protected void decode(ChannelHandlerContext context, ByteBuf in, List<Object> out) {
         final int header = in.readInt();
+
+        log.debug("Checking Header {} ", header);
 
         if (!receiveCypher.isValidHeader(header)) {
             throw new InvalidPacketHeaderException("Attempted to decode a packet with an invalid header", header);

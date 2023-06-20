@@ -22,6 +22,7 @@ public class InitializationVector {
     }
 
     private static byte getRandomByte() {
-        return (byte) (Math.random() * 255);
+        return 0;
+        //return (byte) (Math.random() * 255);
     }
 }

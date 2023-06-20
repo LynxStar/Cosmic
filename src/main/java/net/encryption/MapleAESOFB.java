@@ -46,6 +46,13 @@ public class MapleAESOFB {
                     0x33, 0x00, 0x00, 0x00,
                     0x52, 0x00, 0x00, 0x00}, "AES");
 
+    public void DumpTrace()
+    {
+        log.debug("Rotations: {} IVs: {}", rotations, HexTool.toHexString(iv));
+    }
+
+    private int rotations;
+
     private static final byte[] funnyBytes = new byte[]{
             (byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4, (byte) 0x45, (byte) 0xD0, (byte) 0x71, (byte) 0xBF,
             (byte) 0xB7, (byte) 0x98, (byte) 0x20, (byte) 0xFC, (byte) 0x4B, (byte) 0xE9, (byte) 0xB3, (byte) 0xE1,
@@ -82,11 +89,11 @@ public class MapleAESOFB {
 
     private final short mapleVersion;
     private final Cipher cipher;
-    private byte[] iv;
+    public byte[] iv;
 
     public MapleAESOFB(InitializationVector iv, short mapleVersion) {
         try {
-            cipher = Cipher.getInstance("AES");
+            cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, skey);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) {
             log.warn("Cypher initialization error with skey: {}", skey, e);
@@ -136,6 +143,7 @@ public class MapleAESOFB {
 
     private synchronized void updateIv() {
         this.iv = getNewIv(this.iv);
+        rotations++;
     }
 
     public byte[] getPacketHeader(int length) {
@@ -183,37 +191,37 @@ public class MapleAESOFB {
         return "IV: " + HexTool.toHexString(this.iv);
     }
 
-    private static byte[] funnyShit(byte inputByte, byte[] in) {
-        byte elina = in[1];
+    private static byte[] funnyShit(byte inputByte, byte[] input) {
+        byte elina = input[1];
         byte anna = inputByte;
         byte moritz = funnyBytes[(int) elina & 0xFF];
         moritz -= inputByte;
-        in[0] += moritz;
-        moritz = in[2];
+        input[0] += moritz;
+        moritz = input[2];
         moritz ^= funnyBytes[(int) anna & 0xFF];
         elina -= (int) moritz & 0xFF;
-        in[1] = elina;
-        elina = in[3];
+        input[1] = elina;
+        elina = input[3];
         moritz = elina;
-        elina -= (int) in[0] & 0xFF;
+        elina -= (int) input[0] & 0xFF;
         moritz = funnyBytes[(int) moritz & 0xFF];
         moritz += inputByte;
-        moritz ^= in[2];
-        in[2] = moritz;
+        moritz ^= input[2];
+        input[2] = moritz;
         elina += (int) funnyBytes[(int) anna & 0xFF] & 0xFF;
-        in[3] = elina;
-        int merry = ((int) in[0]) & 0xFF;
-        merry |= (in[1] << 8) & 0xFF00;
-        merry |= (in[2] << 16) & 0xFF0000;
-        merry |= (in[3] << 24) & 0xFF000000;
+        input[3] = elina;
+        int merry = ((int) input[0]) & 0xFF;
+        merry |= (input[1] << 8) & 0xFF00;
+        merry |= (input[2] << 16) & 0xFF0000;
+        merry |= (input[3] << 24) & 0xFF000000;
         int ret_value = merry;
         ret_value = ret_value >>> 0x1d;
         merry = merry << 3;
         ret_value = ret_value | merry;
-        in[0] = (byte) (ret_value & 0xFF);
-        in[1] = (byte) ((ret_value >> 8) & 0xFF);
-        in[2] = (byte) ((ret_value >> 16) & 0xFF);
-        in[3] = (byte) ((ret_value >> 24) & 0xFF);
-        return in;
+        input[0] = (byte) (ret_value & 0xFF);
+        input[1] = (byte) ((ret_value >> 8) & 0xFF);
+        input[2] = (byte) ((ret_value >> 16) & 0xFF);
+        input[3] = (byte) ((ret_value >> 24) & 0xFF);
+        return input;
     }
 }

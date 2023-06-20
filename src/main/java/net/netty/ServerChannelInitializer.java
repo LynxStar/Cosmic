@@ -27,8 +27,8 @@ public abstract class ServerChannelInitializer extends ChannelInitializer<Socket
     private static final Logger log = LoggerFactory.getLogger(ServerChannelInitializer.class);
     private static final int IDLE_TIME_SECONDS = 30;
     private static final boolean LOG_PACKETS = YamlConfig.config.server.USE_DEBUG_SHOW_PACKET;
-    private static final ChannelHandler sendPacketLogger = new OutPacketLogger();
-    private static final ChannelHandler receivePacketLogger = new InPacketLogger();
+    private static final OutPacketLogger sendPacketLogger = new OutPacketLogger();
+    private static final InPacketLogger receivePacketLogger = new InPacketLogger();
 
     static final AtomicLong sessionId = new AtomicLong(7777);
 
@@ -49,12 +49,24 @@ public abstract class ServerChannelInitializer extends ChannelInitializer<Socket
     void initPipeline(SocketChannel socketChannel, Client client) {
         final InitializationVector sendIv = InitializationVector.generateSend();
         final InitializationVector recvIv = InitializationVector.generateReceive();
-        writeInitialUnencryptedHelloPacket(socketChannel, sendIv, recvIv);
+        writeInitialUnencryptedHelloPacket(socketChannel, sendIv, recvIv, client);
         setUpHandlers(socketChannel.pipeline(), sendIv, recvIv, client);
     }
 
-    private void writeInitialUnencryptedHelloPacket(SocketChannel socketChannel, InitializationVector sendIv, InitializationVector recvIv) {
-        socketChannel.writeAndFlush(Unpooled.wrappedBuffer(PacketCreator.getHello(ServerConstants.VERSION, sendIv, recvIv).getBytes()));
+    private void writeInitialUnencryptedHelloPacket(SocketChannel socketChannel,
+            InitializationVector sendIv, InitializationVector recvIv, Client client) {
+
+        var packet = PacketCreator.getHello(ServerConstants.VERSION, sendIv, recvIv);
+
+        var buffer = Unpooled.wrappedBuffer(packet.getBytes());
+
+        log.debug("Saying hello to {} at {}", client.getSessionId(), client.getRemoteAddress());
+
+        if(LOG_PACKETS) {
+            sendPacketLogger.log(packet);
+        }
+
+        socketChannel.writeAndFlush(buffer);
     }
 
     private void setUpHandlers(ChannelPipeline pipeline, InitializationVector sendIv, InitializationVector recvIv,
