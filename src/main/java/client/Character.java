@@ -3122,51 +3122,54 @@ public class Character extends AbstractCharacterObject {
                     levels += level;
                 }
 
-                var averageLevel = levels / size;
+                var averageLevel = size > 0
+                    ? levels / size
+                    : levels
+                    ;
 
                 var levelDiff = this.level - averageLevel;
 
-                if(level <= -5) {
+                if(levelDiff <= -5) {
                     playgroupEXPRate = 3.5f;
                     playgroupDropRate = 1;
                 }
-                else if(level == -4) {
+                else if(levelDiff == -4) {
                     playgroupEXPRate = 2.5f;
                     playgroupDropRate = 1;
                 }
-                else if(level == -3) {
+                else if(levelDiff == -3) {
                     playgroupEXPRate = 2.0f;
                     playgroupDropRate = 1;
                 }
-                else if(level == -2) {
+                else if(levelDiff == -2) {
                     playgroupEXPRate = 1.5f;
                     playgroupDropRate = 1;
                 }
-                else if(level == -1) {
+                else if(levelDiff == -1) {
                     playgroupEXPRate = 1.25f;
                     playgroupDropRate = 1;
                 }
-                else if (level == 0) {
+                else if (levelDiff == 0) {
                     playgroupEXPRate = 1.0f;
                     playgroupDropRate = 1;
                 }
-                else if(level == 1) {
+                else if(levelDiff == 1) {
                     playgroupEXPRate = 1f;
                     playgroupDropRate = 1;
                 }
-                else if(level == 2) {
+                else if(levelDiff == 2) {
                     playgroupEXPRate = .9f;
                     playgroupDropRate = 1.1;
                 }
-                else if(level == 3) {
+                else if(levelDiff == 3) {
                     playgroupEXPRate = 0.75f;
                     playgroupDropRate = 1.25;
                 }
-                else if(level == 4) {
+                else if(levelDiff == 4) {
                     playgroupEXPRate = 0.65f;
                     playgroupDropRate = 1.35;
                 }
-                else if(level >= 5) {
+                else if(levelDiff >= 5) {
                     playgroupEXPRate = .35f;
                     playgroupDropRate = 1.66;
                 }
@@ -6492,8 +6495,6 @@ public class Character extends AbstractCharacterObject {
 
         level++;
 
-        CalculatePlaygroupRates();
-
         if (level >= getMaxClassLevel()) {
             exp.set(0);
 
@@ -6599,6 +6600,9 @@ public class Character extends AbstractCharacterObject {
                 }
             }
         }
+
+        saveCharToDB(true);
+        CalculatePlaygroupRates();
     }
 
     public boolean leaveParty() {
@@ -8490,9 +8494,10 @@ public class Character extends AbstractCharacterObject {
                     ps.setTimestamp(53, new Timestamp(lastExpGainTime));
                     ps.setInt(54, ariantPoints);
                     ps.setBoolean(55, canRecvPartySearchInvite);
-                    ps.setInt(56, id);
 
-                    ps.setInt(57, (int)cashexp);
+                    ps.setInt(56, (int)cashexp);
+
+                    ps.setInt(57, id);
 
                     int updateRows = ps.executeUpdate();
                     if (updateRows < 1) {
