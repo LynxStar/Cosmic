@@ -41,14 +41,19 @@ public final class CreateCharHandler extends AbstractPacketHandler {
 
     private final static Set<Integer> IDs = new HashSet<>(Arrays.asList(
             ItemId.SWORD, ItemId.HAND_AXE, ItemId.WOODEN_CLUB, ItemId.BASIC_POLEARM,// weapons
+
             ItemId.WHITE_UNDERSHIRT, ItemId.UNDERSHIRT, ItemId.GREY_TSHIRT, ItemId.WHITE_TUBETOP, ItemId.YELLOW_TSHIRT,
-            ItemId.GREEN_TSHIRT, ItemId.RED_STRIPED_TOP, ItemId.SIMPLE_WARRIOR_TOP,// bottom
+            ItemId.GREEN_TSHIRT, ItemId.RED_STRIPED_TOP, ItemId.SIMPLE_WARRIOR_TOP,// top
+
             ItemId.BLUE_JEAN_SHORTS, ItemId.BROWN_COTTON_SHORTS, ItemId.RED_MINISKIRT, ItemId.INDIGO_MINISKIRT,
-            ItemId.SIMPLE_WARRIOR_PANTS, // top
+            ItemId.SIMPLE_WARRIOR_PANTS, // bottom
+
             ItemId.RED_RUBBER_BOOTS, ItemId.LEATHER_SANDALS, ItemId.YELLOW_RUBBER_BOOTS, ItemId.BLUE_RUBBER_BOOTS,
             ItemId.AVERAGE_MUSASHI_SHOES,// shoes
+
             ItemId.BLACK_TOBEN, ItemId.ZETA, ItemId.BLACK_REBEL, ItemId.BLACK_BUZZ, ItemId.BLACK_SAMMY,
             ItemId.BLACK_EDGY, ItemId.BLACK_CONNIE,// hair
+
             ItemId.MOTIVATED_LOOK_M, ItemId.PERPLEXED_STARE, ItemId.LEISURE_LOOK_M, ItemId.MOTIVATED_LOOK_F,
             ItemId.FEARFUL_STARE_M, ItemId.LEISURE_LOOK_F, ItemId.FEARFUL_STARE_F, ItemId.PERPLEXED_STARE_HAZEL,
             ItemId.LEISURE_LOOK_HAZEL, ItemId.MOTIVATED_LOOK_AMETHYST, ItemId.MOTIVATED_LOOK_BLUE  //face

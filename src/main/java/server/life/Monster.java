@@ -719,6 +719,8 @@ public class Monster extends AbstractLoadedLife {
                 personalExp += expBonus;
             }
 
+            personalExp = attacker.applyPlaygroupEXP(personalExp);
+
             int _personalExp = expValueToInteger(personalExp); // assuming no negative xp here
 
             if (partyExp != null) {
@@ -730,6 +732,8 @@ public class Monster extends AbstractLoadedLife {
             }
 
             int _partyExp = expValueToInteger(partyExp);
+
+            partyExp = attacker.applyPlaygroupEXP(partyExp);
 
             attacker.gainExp(_personalExp, _partyExp, true, false, white);
             attacker.increaseEquipExp(_personalExp);

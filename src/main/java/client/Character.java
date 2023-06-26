@@ -260,6 +260,10 @@ public class Character extends AbstractCharacterObject {
     private long loginTime;
     private boolean chasing = false;
 
+    private Float playgroupEXPRate = 1.0f;
+    private double playgroupDropRate = 1;
+    private double cashexp = 0;
+
     private Character() {
         super.setListener(new AbstractCharacterListener() {
             @Override
@@ -3080,6 +3084,101 @@ public class Character extends AbstractCharacterObject {
         sendPacket(PacketCreator.getShowExpGain((int) gain, equip, party, inChat, white));
     }
 
+    public Float applyPlaygroupEXP(Float exp) {
+
+        if(exp < 0){
+            return exp;
+        }
+
+        var adjustedAmount = exp * playgroupEXPRate;
+
+        var lost = exp - adjustedAmount;
+
+        if(lost > 0)
+        {
+            cashexp += lost;
+        }
+
+        return adjustedAmount;
+
+    }
+
+    private void CalculatePlaygroupRates()
+    {
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT MAX(level) as 'level' FROM cosmic.characters GROUP BY accountid"))
+        {
+
+            try(ResultSet rs = ps.executeQuery())
+            {
+                var size = 0;
+                var levels = 0;
+
+                while (rs.next())
+                {
+                    var level = rs.getInt("level");
+                    size++;
+                    levels += level;
+                }
+
+                var averageLevel = levels / size;
+
+                var levelDiff = this.level - averageLevel;
+
+                if(level <= -5) {
+                    playgroupEXPRate = 3.5f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == -4) {
+                    playgroupEXPRate = 2.5f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == -3) {
+                    playgroupEXPRate = 2.0f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == -2) {
+                    playgroupEXPRate = 1.5f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == -1) {
+                    playgroupEXPRate = 1.25f;
+                    playgroupDropRate = 1;
+                }
+                else if (level == 0) {
+                    playgroupEXPRate = 1.0f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == 1) {
+                    playgroupEXPRate = 1f;
+                    playgroupDropRate = 1;
+                }
+                else if(level == 2) {
+                    playgroupEXPRate = .9f;
+                    playgroupDropRate = 1.1;
+                }
+                else if(level == 3) {
+                    playgroupEXPRate = 0.75f;
+                    playgroupDropRate = 1.25;
+                }
+                else if(level == 4) {
+                    playgroupEXPRate = 0.65f;
+                    playgroupDropRate = 1.35;
+                }
+                else if(level >= 5) {
+                    playgroupEXPRate = .35f;
+                    playgroupDropRate = 1.66;
+                }
+
+            }
+
+        }
+        catch(SQLException e) {
+
+        }
+    }
+
     private synchronized void gainExpInternal(long gain, int equip, int party, boolean show, boolean inChat, boolean white) {   // need of method synchonization here detected thanks to MedicOP
         long total = Math.max(gain + equip + party, -exp.get());
 
@@ -4920,6 +5019,8 @@ public class Character extends AbstractCharacterObject {
     public float getCardRate(int itemid) {
         float rate = 100.0f;
 
+        rate *= playgroupDropRate;
+
         if (itemid == 0) {
             StatEffect mseMeso = getBuffEffect(BuffStat.MESO_UP_BY_ITEM);
             if (mseMeso != null) {
@@ -6390,6 +6491,9 @@ public class Character extends AbstractCharacterObject {
         }
 
         level++;
+
+        CalculatePlaygroupRates();
+
         if (level >= getMaxClassLevel()) {
             exp.set(0);
 
@@ -6780,6 +6884,9 @@ public class Character extends AbstractCharacterObject {
             ret.jobRank = rs.getInt("jobRank");
             ret.jobRankMove = rs.getInt("jobRankMove");
 
+            ret.cashexp = rs.getInt("cashexp");
+            ret.CalculatePlaygroupRates();
+
             if (equipped != null) {  // players can have no equipped items at all, ofc
                 Inventory inv = ret.inventory[InventoryType.EQUIPPED.ordinal()];
                 for (Item item : equipped) {
@@ -6936,6 +7043,9 @@ public class Character extends AbstractCharacterObject {
                     ret.buddylist = new BuddyList(buddyCapacity);
                     ret.lastExpGainTime = rs.getTimestamp("lastExpGainTime").getTime();
                     ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
+
+                    ret.cashexp = rs.getInt("cashexp");
+                    ret.CalculatePlaygroupRates();
 
                     wserv = Server.getInstance().getWorld(ret.world);
 
@@ -8266,7 +8376,7 @@ public class Character extends AbstractCharacterObject {
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
             try {
-                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
+                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, cashexp = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, level);    // thanks CanIGetaPR for noticing an unnecessary "level" limitation when persisting DB data
                     ps.setInt(2, fame);
 
@@ -8381,6 +8491,8 @@ public class Character extends AbstractCharacterObject {
                     ps.setInt(54, ariantPoints);
                     ps.setBoolean(55, canRecvPartySearchInvite);
                     ps.setInt(56, id);
+
+                    ps.setInt(57, (int)cashexp);
 
                     int updateRows = ps.executeUpdate();
                     if (updateRows < 1) {
