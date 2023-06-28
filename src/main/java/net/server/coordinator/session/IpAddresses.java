@@ -1,6 +1,9 @@
 package net.server.coordinator.session;
 
+import client.Client;
 import config.YamlConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -8,6 +11,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class IpAddresses {
+
+    private static final Logger log = LoggerFactory.getLogger(IpAddresses.class);
+
     private static final List<Pattern> LOCAL_ADDRESS_PATTERNS = loadLocalAddressPatterns();
 
     private static List<Pattern> loadLocalAddressPatterns() {
@@ -17,11 +23,15 @@ public class IpAddresses {
     }
 
     public static String evaluateRemoteAddress(String inetAddress) {
-        if (isLocalAddress(inetAddress) || isLanAddress(inetAddress)) {
-            return YamlConfig.config.server.HOST;
-        } else {
-            return inetAddress;
-        }
+
+        var result = isLocalAddress(inetAddress) || isLanAddress(inetAddress)
+                ? YamlConfig.config.server.HOST
+                : inetAddress
+                ;
+
+        log.debug("Evaluating Remote Address: {} and got result {}", inetAddress, result);
+
+        return result;
     }
 
     public static boolean isLocalAddress(String inetAddress) {
