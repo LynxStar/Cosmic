@@ -303,6 +303,7 @@ public class Server {
         }
 
         try {
+            log.debug("getInetSocket: {}:{}", hostAddress[0], hostAddress[1]);
             return hostAddress;
         } catch (Exception e) {
             return null;
