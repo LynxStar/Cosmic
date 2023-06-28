@@ -68,6 +68,7 @@ public class CharSelectedWithPicHandler extends AbstractPacketHandler {
             }
 
             String[] socket = server.getInetSocket(c, c.getWorld(), c.getChannel());
+            log.debug("Sending ServerIP: {}:{}", socket[0], socket[1]);
             if (socket == null) {
                 c.sendPacket(PacketCreator.getAfterLoginError(10));
                 return;
