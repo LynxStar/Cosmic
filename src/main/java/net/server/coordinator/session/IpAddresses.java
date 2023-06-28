@@ -25,8 +25,8 @@ public class IpAddresses {
     public static String evaluateRemoteAddress(String inetAddress) {
 
         var result = isLocalAddress(inetAddress) || isLanAddress(inetAddress)
-                ? YamlConfig.config.server.HOST
-                : inetAddress
+                ? inetAddress
+                : YamlConfig.config.server.HOST
                 ;
 
         log.debug("Evaluating Remote Address: {} and got result {}", inetAddress, result);
