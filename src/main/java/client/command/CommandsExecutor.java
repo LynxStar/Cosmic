@@ -202,6 +202,7 @@ public class CommandsExecutor {
         addCommand("bosshp", BossHpCommand.class);
         addCommand("mobhp", MobHpCommand.class);
         addCommand("pg", PlayGroupCommand.class);
+        addCommand("redeem", RedeemCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }
