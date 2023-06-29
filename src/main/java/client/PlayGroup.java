@@ -104,4 +104,41 @@ public class PlayGroup {
         }
     }
 
+    public static int getCardRedemption(Character character) {
+
+        var id = character.getAccountID();
+
+        var redemptions = 0;
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT cardsRedeemed FROM cosmic.accounts WHERE id = ?"))
+        {
+
+            ps.setInt(1, id);
+
+            try(ResultSet rs = ps.executeQuery())
+            {
+
+                while (rs.next())
+                {
+                    redemptions = rs.getInt("cardsRedeemed");
+                }
+
+            }
+        }
+        catch(SQLException e) {}
+
+        return redemptions;
+
+    }
+
+    public static int getTotalExpNeeded(int card) {
+
+
+        var growth = Math.pow(1.1, card - 1);
+
+        return (int)(1000*card*growth);
+
+    }
+
 }

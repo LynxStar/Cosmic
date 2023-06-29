@@ -24,24 +24,38 @@ public class PlayGroupCommand extends Command {
     public void execute(Client c, String[] params) {
 
 
-        Character player = c.getPlayer();
+        Character character = c.getPlayer();
 
-        player.CalculatePlaygroupRates();
+        character.CalculatePlaygroupRates();
 
         var levelData = PlayGroup.getPGLevelData();
 
-        var level = player.getLevel();
+        var level = character.getLevel();
         var diff = level - levelData.getThird();
 
-        player.yellowMessage(String.format("[Lvl Range]: %d - %d", levelData.getFirst(), levelData.getSecond()));
-        player.yellowMessage(String.format("[BonusTier]: %.1f", diff));
-        player.yellowMessage(String.format("[EXP  Rate]: %.2f%%", player.playgroupEXPRate * 100));
-        player.yellowMessage(String.format("[Drop Rate]: %.2f%%", player.playgroupDropRate * 100));
+        character.yellowMessage(String.format("[Playgroup]: %d - %d", levelData.getFirst(), levelData.getSecond()));
+        character.yellowMessage(String.format("[Bonus Tier]: %.1f", diff));
+        character.yellowMessage(String.format("[EXP Rate]: %.2f%%", character.playgroupEXPRate * 100));
+        character.yellowMessage(String.format("[Drop Rate]: %.2f%%", character.playgroupDropRate * 100));
 
-        var cashBar = player.cashexp / 1000 * 100;
+        var redemptions = PlayGroup.getCardRedemption(character);
+        var redeemable = 0;
 
-        player.yellowMessage(String.format("[Cash  EXP]: %.2f/1000 %f%%", player.cashexp, cashBar));
-        player.yellowMessage(String.format("[Cards Avl]: %d", 0));
+        var expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1);
+
+        var exp = character.cashexp;
+
+        while(exp >= expNeeded)
+        {
+            redeemable++;
+            exp -= expNeeded;
+            expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1 + redeemable);
+        }
+
+        var redemptionProgress = (double)exp / expNeeded;
+
+        character.yellowMessage(String.format("[Cash EXP]: %d/1000 %f%%", exp, redemptionProgress));
+        character.yellowMessage(String.format("[Redeemable]: %d", redeemable));
 
     }
 
