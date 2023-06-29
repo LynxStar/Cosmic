@@ -1,5 +1,6 @@
 package net.encryption;
 
+import config.YamlConfig;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -25,7 +26,9 @@ public class PacketDecoder extends ReplayingDecoder<Void> {
     protected void decode(ChannelHandlerContext context, ByteBuf in, List<Object> out) {
         final int header = in.readInt();
 
-        log.debug("Checking Header {} ", header);
+        if(YamlConfig.config.server.USE_DEBUG) {
+            log.debug("Checking Header {} ", header);
+        }
 
         if (!receiveCypher.isValidHeader(header)) {
             throw new InvalidPacketHeaderException("Attempted to decode a packet with an invalid header", header);
