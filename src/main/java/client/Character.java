@@ -260,9 +260,9 @@ public class Character extends AbstractCharacterObject {
     private long loginTime;
     private boolean chasing = false;
 
-    private Float playgroupEXPRate = 1.0f;
-    private double playgroupDropRate = 1;
-    private double cashexp = 0;
+    public Float playgroupEXPRate = 1.0f;
+    public double playgroupDropRate = 1;
+    public double cashexp = 0;
 
     private Character() {
         super.setListener(new AbstractCharacterListener() {
@@ -3103,83 +3103,28 @@ public class Character extends AbstractCharacterObject {
 
     }
 
-    private void CalculatePlaygroupRates()
+    public void CalculatePlaygroupRates()
     {
 
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT MAX(level) as 'level' FROM cosmic.characters GROUP BY accountid"))
-        {
+        var rates = PlayGroup.calculateRates(this);
 
-            try(ResultSet rs = ps.executeQuery())
-            {
-                var size = 0;
-                var levels = 0;
+        var expOriginal = playgroupEXPRate;
+        var dropOriginal = playgroupDropRate;
 
-                while (rs.next())
-                {
-                    var level = rs.getInt("level");
-                    size++;
-                    levels += level;
-                }
+        playgroupEXPRate = rates.getFirst();
+        playgroupDropRate = rates.getSecond();
 
-                var averageLevel = size > 0
-                    ? levels / size
-                    : levels
-                    ;
-
-                var levelDiff = this.level - averageLevel;
-
-                if(levelDiff <= -5) {
-                    playgroupEXPRate = 3.5f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == -4) {
-                    playgroupEXPRate = 2.5f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == -3) {
-                    playgroupEXPRate = 2.0f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == -2) {
-                    playgroupEXPRate = 1.5f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == -1) {
-                    playgroupEXPRate = 1.25f;
-                    playgroupDropRate = 1;
-                }
-                else if (levelDiff == 0) {
-                    playgroupEXPRate = 1.0f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == 1) {
-                    playgroupEXPRate = 1f;
-                    playgroupDropRate = 1;
-                }
-                else if(levelDiff == 2) {
-                    playgroupEXPRate = .9f;
-                    playgroupDropRate = 1.1;
-                }
-                else if(levelDiff == 3) {
-                    playgroupEXPRate = 0.75f;
-                    playgroupDropRate = 1.25;
-                }
-                else if(levelDiff == 4) {
-                    playgroupEXPRate = 0.65f;
-                    playgroupDropRate = 1.35;
-                }
-                else if(levelDiff >= 5) {
-                    playgroupEXPRate = .35f;
-                    playgroupDropRate = 1.66;
-                }
-
-            }
-
+        if(client == null) {
+            return;
         }
-        catch(SQLException e) {
 
+        if(expOriginal != playgroupEXPRate) {
+            yellowMessage(String.format("EXP Rate adjusted from %.2f%% to %.2f%%", expOriginal, playgroupEXPRate));
         }
+        if(dropOriginal != playgroupDropRate) {
+            yellowMessage(String.format("Drop Rate adjusted from %.2f%% to %.2f%%", dropOriginal, playgroupDropRate));
+        }
+
     }
 
     private synchronized void gainExpInternal(long gain, int equip, int party, boolean show, boolean inChat, boolean white) {   // need of method synchonization here detected thanks to MedicOP
