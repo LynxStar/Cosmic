@@ -84,22 +84,26 @@ public class PlayGroup {
             }
             else if(levelDiff == 5) {
                 exp = .45f;
-                drop = 1.66;
+                drop = 1.5;
             }
             else if(levelDiff == 6) {
                 exp = .35f;
-                drop = 2.00;
+                drop = 1.75;
             }
             else if(levelDiff == 7) {
                 exp = .30f;
+                drop = 2.00;
+            }
+            else if(levelDiff < 10) {
+                exp = .25f;
                 drop = 2.25;
             }
-            else if(levelDiff == 8) {
-                exp = .25f;
-                drop = 2.5;
-            }
-            else if(levelDiff >= 10){
+            else if(levelDiff < 15){
                 exp = .2f;
+                drop = 2.75;
+            }
+            else {
+                exp = .1f;
                 drop = 3.0;
             }
         }
