@@ -22,7 +22,6 @@ public class PlayGroup {
         {
             try(ResultSet rs = ps.executeQuery())
             {
-
                 while (rs.next())
                 {
                     levels.add(rs.getInt("level"));
@@ -44,12 +43,16 @@ public class PlayGroup {
 
         var levelData = getPGLevelData();
 
-        var levelDiff = character.getLevel() - levelData.getThird();
+        var median = levelData.getThird();
+        var average = levelData.getSecond() - levelData.getFirst();
+
+        var level = character.getLevel();
+        var levelDiff =  - average;
 
         Float exp = 1f;
         Double drop = 1d;
 
-        if(levelDiff < 0) {
+        if(level <= median) {
             if(levelDiff <= -5) {
                 exp = 3.5f;
             }
@@ -79,13 +82,25 @@ public class PlayGroup {
                 exp = 0.65f;
                 drop = 1.35;
             }
-            else if(levelDiff >= 5) {
-                exp = .35f;
+            else if(levelDiff == 5) {
+                exp = .45f;
                 drop = 1.66;
+            }
+            else if(levelDiff == 6) {
+                exp = .35f;
+                drop = 2.00;
+            }
+            else if(levelDiff == 7) {
+                exp = .30f;
+                drop = 2.25;
+            }
+            else if(levelDiff == 8) {
+                exp = .25f;
+                drop = 2.5;
             }
             else if(levelDiff >= 10){
                 exp = .2f;
-                drop = 2.5;
+                drop = 3.0;
             }
         }
 
