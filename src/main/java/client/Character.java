@@ -3058,6 +3058,45 @@ public class Character extends AbstractCharacterObject {
 
         int equip = (int) Math.min((long) (gain / 10) * pendantExp, Integer.MAX_VALUE);
 
+        long start = gain + equip + party;
+        long remaining = applyPlaygroupEXP(start);
+        long lost = start - remaining;
+
+        //For the amount lost pay for it via
+        //Gain, party, and then equip
+        if(lost > 0 && gain > 0) {
+            gain -= lost;
+            lost = 0;
+
+            if(gain < 0) {
+                lost = -gain;
+                gain = 0;
+            }
+
+        }
+        if(lost > 0 && party > 0) {
+            party -= lost;
+            lost = 0;
+
+            if(party < 0) {
+                lost = -party;
+                party = 0;
+            }
+
+        }
+        if(lost > 0 && equip > 0) {
+            equip -= lost;
+            lost = 0;
+
+            if(equip < 0) {
+                lost = -equip;
+                equip = 0;
+            }
+        }
+        if(lost > 0) {
+            throw new RuntimeException("wtf is this");
+        }
+
         gainExpInternal(gain, equip, party, show, inChat, white);
     }
 
@@ -3084,7 +3123,7 @@ public class Character extends AbstractCharacterObject {
         sendPacket(PacketCreator.getShowExpGain((int) gain, equip, party, inChat, white));
     }
 
-    public Float applyPlaygroupEXP(Float exp) {
+    public long applyPlaygroupEXP(long exp) {
 
         if(exp < 0){
             return exp;
@@ -3099,7 +3138,7 @@ public class Character extends AbstractCharacterObject {
             cashexp += lost;
         }
 
-        return adjustedAmount;
+        return (long)adjustedAmount;
 
     }
 
