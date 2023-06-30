@@ -3062,6 +3062,11 @@ public class Character extends AbstractCharacterObject {
         long remaining = applyPlaygroupEXP(start);
         long lost = start - remaining;
 
+        if(lost < 0) {
+            gain += -lost;
+            lost = 0;
+        }
+
         //For the amount lost pay for it via
         //Gain, party, and then equip
         if(lost > 0 && gain > 0) {

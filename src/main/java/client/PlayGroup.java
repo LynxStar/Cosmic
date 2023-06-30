@@ -44,15 +44,22 @@ public class PlayGroup {
         var levelData = getPGLevelData();
 
         var median = levelData.getThird();
-        var average = levelData.getSecond() - levelData.getFirst();
+        var average = (levelData.getSecond() + levelData.getFirst()) / 2;
 
         var level = character.getLevel();
-        var levelDiff =  - average;
+
+        var levelDiff = level;
 
         Float exp = 1f;
         Double drop = 1d;
 
         if(level <= median) {
+
+            levelDiff -= median > average
+                ? median
+                : average
+                ;
+
             if(levelDiff <= -5) {
                 exp = 3.5f;
             }
@@ -70,6 +77,12 @@ public class PlayGroup {
             }
         }
         else if(levelDiff > 1) {
+
+            levelDiff -= median < average
+                ? median
+                : average
+                ;
+
             if(levelDiff == 2) {
                 exp = .9f;
                 drop = 1.1;
