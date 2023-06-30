@@ -56,7 +56,7 @@ public class PlayGroupCommand extends Command {
 
         var redemptionProgress = exp / expNeeded;
 
-        character.yellowMessage(String.format("[Cash EXP]: %d/1000 %.2f%%", (int)exp, redemptionProgress));
+        character.yellowMessage(String.format("[Cash EXP]: %d/%d %.2f%%", (int)exp, expNeeded, redemptionProgress));
         character.yellowMessage(String.format("[Redeemable]: %d", redeemable));
 
     }

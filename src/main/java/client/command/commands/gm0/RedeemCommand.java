@@ -44,7 +44,7 @@ public class RedeemCommand extends Command {
 
         if(redeemable < 1) {
             var redemptionProgress = exp / expNeeded;
-            character.yellowMessage(String.format("You do not have enough cash exp to redeem. Current progress %d/1000 %.2f%%", (int)exp, redemptionProgress));
+            character.yellowMessage(String.format("You do not have enough cash exp to redeem. Current progress %d/%d %.2f%%", (int)exp, expNeeded, redemptionProgress));
 
             return;
         }
@@ -53,12 +53,28 @@ public class RedeemCommand extends Command {
 
         var map = character.getMap();
 
-        for (var i = 0; i < redeemable; i++) {
+        var level = character.getLevel();
 
-            var x = Randomizer.nextInt(10) - 5;
+        for(var i = 0; i < 25; i++) {
+
+            var x = Randomizer.nextInt(i*4) - i;
+            var y = Randomizer.nextInt(50) - 10;
 
             var dropPos = new Point(character.getPosition());
-            dropPos.move(x, 0);
+            dropPos.x += x;
+            dropPos.y += y;
+
+            var mesos = Randomizer.nextInt(10 * level);
+
+            map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
+        }
+
+        for (var i = 0; i < redeemable; i++) {
+
+            var x = Randomizer.nextInt(250) - 125;
+
+            var dropPos = new Point(character.getPosition());
+            dropPos.x += x;
 
             int itemId = Randomizer.nextDouble() < .85
                 ? 4031865//100nx
