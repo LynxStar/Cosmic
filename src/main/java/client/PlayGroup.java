@@ -83,7 +83,11 @@ public class PlayGroup {
                 : average
                 ;
 
-            if(levelDiff == 2) {
+            if(levelDiff < 2) {
+                exp = 1f;
+                drop = 1.0;
+            }
+            else if(levelDiff == 2) {
                 exp = .9f;
                 drop = 1.1;
             }

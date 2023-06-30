@@ -57,7 +57,7 @@ public class RedeemCommand extends Command {
 
         for(var i = 0; i < 25; i++) {
 
-            var x = Randomizer.nextInt(i*4) - i;
+            var x = Randomizer.nextInt((i + 1) * 4) - i;
             var y = Randomizer.nextInt(50) - 10;
 
             var dropPos = new Point(character.getPosition());
