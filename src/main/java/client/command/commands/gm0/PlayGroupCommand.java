@@ -36,7 +36,7 @@ public class PlayGroupCommand extends Command {
 
         var diff = level - median;
         character.yellowMessage(String.format("[Playgroup]: %d to %d Median: [%d]", levelData.getFirst(), levelData.getSecond(), median));
-        character.yellowMessage(String.format("[Distance]: %.1f", diff));
+        character.yellowMessage(String.format("[Distance]: %d", diff));
         character.yellowMessage(String.format("[EXP Rate]: %.2f%%", character.playgroupEXPRate * 100));
         character.yellowMessage(String.format("[Drop Rate]: %.2f%%", character.playgroupDropRate * 100));
 
