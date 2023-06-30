@@ -3118,11 +3118,11 @@ public class Character extends AbstractCharacterObject {
             return;
         }
 
-        if(expOriginal != playgroupEXPRate) {
-            yellowMessage(String.format("EXP Rate adjusted from %.2f%% to %.2f%%", expOriginal, playgroupEXPRate));
+        if(!expOriginal.equals(playgroupEXPRate)) {
+            yellowMessage(String.format("EXP Rate adjusted from %.2f%% to %.2f%%", expOriginal * 100, playgroupEXPRate * 100));
         }
         if(dropOriginal != playgroupDropRate) {
-            yellowMessage(String.format("Drop Rate adjusted from %.2f%% to %.2f%%", dropOriginal, playgroupDropRate));
+            yellowMessage(String.format("Drop Rate adjusted from %.2f%% to %.2f%%", dropOriginal * 100, playgroupDropRate * 100));
         }
 
     }

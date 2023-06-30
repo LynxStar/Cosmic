@@ -18,7 +18,7 @@ public class PlayGroup {
         var levels = new ArrayList<Integer>();
 
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT MAX(level) as 'level' FROM cosmic.characters GROUP BY accountid"))
+             PreparedStatement ps = con.prepareStatement("SELECT MAX(level) as 'level' FROM cosmic.characters WHERE accountid != 1 GROUP BY accountid"))
         {
             try(ResultSet rs = ps.executeQuery())
             {
