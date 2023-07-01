@@ -1523,9 +1523,15 @@ public class Server {
                 playerEquips.add(ae.getLeft());
             }
 
+            var sql = """
+                SELECT c.*, a.redeemMode
+                FROM cosmic.characters c
+                INNER JOIN cosmic.accounts a ON a.id = c.accountid
+                WHERE accountid = ?
+                ORDER BY world, id""";
 
             try (Connection con = DatabaseConnection.getConnection();
-                 PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE accountid = ? ORDER BY world, id")) {
+                 PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, accId);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {

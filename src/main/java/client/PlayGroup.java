@@ -220,14 +220,14 @@ public class PlayGroup {
             if (roll >= .975) {
                 redeemable++;
             }
-            if (roll > .995) {
+            if (roll > .9975) {
                 redeemable += 9;
             }
 
             var toDrop = new Item(itemId, (short)0, (short)1);
             toDrop.setOwner(character.getName());
 
-            map.spawnItemDrop(character, character, toDrop, dropPos, true, true);
+            map.spawnItemDrop(character, character, toDrop, dropPos, false, true);
 
             if (i > 100) {
                 break;

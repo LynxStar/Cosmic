@@ -263,6 +263,8 @@ public class Character extends AbstractCharacterObject {
     public Float playgroupEXPRate = 1.0f;
     public double playgroupDropRate = 1;
     public double cashexp = 0;
+    public int redeemMode = 0;
+
     public boolean cashRedirectionMode = false;
 
     private Character() {
@@ -6593,6 +6595,11 @@ public class Character extends AbstractCharacterObject {
 
         saveCharToDB(true);
         CalculatePlaygroupRates();
+
+        if(redeemMode == 1) {
+            PlayGroup.generateRedemptions(this, 1);
+        }
+
     }
 
     public boolean leaveParty() {
@@ -6879,6 +6886,7 @@ public class Character extends AbstractCharacterObject {
             ret.jobRankMove = rs.getInt("jobRankMove");
 
             ret.cashexp = rs.getInt("cashexp");
+            ret.redeemMode = rs.getInt("redeemMode");
             ret.CalculatePlaygroupRates();
 
             if (equipped != null) {  // players can have no equipped items at all, ofc
@@ -6965,8 +6973,14 @@ public class Character extends AbstractCharacterObject {
             final int mounttiredness;
             final World wserv;
 
+            var sql = """
+                    SELECT c.*, a.redeemMode
+                    FROM cosmic.characters c
+                    INNER JOIN cosmic.accounts a ON a.id = c.accountid
+                    WHERE c.id = ?""";
+
             // Character info
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE id = ?")) {
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, charid);
 
                 try (ResultSet rs = ps.executeQuery()) {
@@ -7039,6 +7053,7 @@ public class Character extends AbstractCharacterObject {
                     ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
 
                     ret.cashexp = rs.getInt("cashexp");
+                    ret.redeemMode = rs.getInt("redeemMode");
                     ret.CalculatePlaygroupRates();
 
                     wserv = Server.getInstance().getWorld(ret.world);
