@@ -26,6 +26,14 @@ public class RedeemCommand extends Command {
 
         Character character = client.getPlayer();
 
+        var map = character.getMap();
+
+        if(map.isTown()) {
+            character.dropMessage(1, "It smells like bitch in here");
+            character.dropMessage(0, "Can only redeem in dangerous areas that are wide open.");
+            return;
+        }
+
         var redemptions = PlayGroup.getCardRedemption(character);
         var redeemable = 0;
 
@@ -51,14 +59,12 @@ public class RedeemCommand extends Command {
 
         character.yellowMessage(String.format("Redeeming cash exp %d for %d cards", expSpent, redeemable));
 
-        var map = character.getMap();
-
         var level = character.getLevel();
 
         for(var i = 0; i < 25; i++) {
 
-            var x = Randomizer.nextInt((i + 1) * 4) - i;
-            var y = Randomizer.nextInt(50) - 10;
+            var x = Randomizer.nextInt((i + 1) * 10) - ((i + 1) * 5);
+            var y = Randomizer.nextInt(250) - 10;
 
             var dropPos = new Point(character.getPosition());
             dropPos.x += x;
@@ -71,7 +77,7 @@ public class RedeemCommand extends Command {
 
         for (var i = 0; i < redeemable; i++) {
 
-            var x = Randomizer.nextInt(250) - 125;
+            var x = Randomizer.nextInt(2000) - 1000;
 
             var dropPos = new Point(character.getPosition());
             dropPos.x += x;
