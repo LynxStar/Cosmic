@@ -263,6 +263,7 @@ public class Character extends AbstractCharacterObject {
     public Float playgroupEXPRate = 1.0f;
     public double playgroupDropRate = 1;
     public double cashexp = 0;
+    public boolean cashRedirectionMode = false;
 
     private Character() {
         super.setListener(new AbstractCharacterListener() {

@@ -125,6 +125,10 @@ public class PlayGroup {
             }
         }
 
+        if(character.cashRedirectionMode) {
+            exp = 0.1f;
+        }
+
         return new Pair<>(exp, drop);
 
     }
