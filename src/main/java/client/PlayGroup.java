@@ -1,9 +1,12 @@
 package client;
 
+import client.inventory.Item;
 import com.oracle.truffle.js.runtime.util.Triple;
 import com.oracle.truffle.js.runtime.util.Pair;
 import tools.DatabaseConnection;
+import tools.Randomizer;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -179,6 +182,58 @@ public class PlayGroup {
 
         return (int)(1000*card*growth);
 
+    }
+
+    public static void generateRedemptions(Character character, int redeemable) {
+
+        var map = character.getMap();
+        var level = character.getLevel();
+
+        for(var i = 0; i < 25; i++) {
+
+            var x = Randomizer.nextInt((i + 1) * 10) - ((i + 1) * 5);
+            var y = Randomizer.nextInt(250) - 10;
+
+            var dropPos = new Point(character.getPosition());
+            dropPos.x += x;
+            dropPos.y += y;
+
+            var mesos = Randomizer.nextInt(10 * level);
+
+            map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
+        }
+
+        for (var i = 0; i < redeemable; i++) {
+
+            var x = Randomizer.nextInt(2000) - 1000;
+
+            var dropPos = new Point(character.getPosition());
+            dropPos.x += x;
+
+            var roll = Randomizer.nextDouble();
+
+            int itemId = roll < .80
+                ? 4031865//100nx
+                : 4031866//250nx
+                ;
+
+            if (roll >= .975) {
+                redeemable++;
+            }
+            if (roll > .995) {
+                redeemable += 9;
+            }
+
+            var toDrop = new Item(itemId, (short)0, (short)1);
+            toDrop.setOwner(character.getName());
+
+            map.spawnItemDrop(character, character, toDrop, dropPos, true, true);
+
+            if (i > 100) {
+                break;
+            }
+
+        }
     }
 
 }

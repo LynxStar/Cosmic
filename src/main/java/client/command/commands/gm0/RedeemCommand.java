@@ -59,39 +59,7 @@ public class RedeemCommand extends Command {
 
         character.yellowMessage(String.format("Redeeming cash exp %d for %d cards", expSpent, redeemable));
 
-        var level = character.getLevel();
-
-        for(var i = 0; i < 25; i++) {
-
-            var x = Randomizer.nextInt((i + 1) * 10) - ((i + 1) * 5);
-            var y = Randomizer.nextInt(250) - 10;
-
-            var dropPos = new Point(character.getPosition());
-            dropPos.x += x;
-            dropPos.y += y;
-
-            var mesos = Randomizer.nextInt(10 * level);
-
-            map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
-        }
-
-        for (var i = 0; i < redeemable; i++) {
-
-            var x = Randomizer.nextInt(2000) - 1000;
-
-            var dropPos = new Point(character.getPosition());
-            dropPos.x += x;
-
-            int itemId = Randomizer.nextDouble() < .85
-                ? 4031865//100nx
-                : 4031866//250nx
-                ;
-
-            var toDrop = new Item(itemId, (short)0, (short)1);
-            toDrop.setOwner(character.getName());
-
-            map.spawnItemDrop(character, character, toDrop, dropPos, true, true);
-        }
+        PlayGroup.generateRedemptions(character, redeemable);
 
         character.cashexp -= expSpent;
 
