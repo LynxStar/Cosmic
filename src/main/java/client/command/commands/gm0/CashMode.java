@@ -21,7 +21,13 @@ public class CashMode extends Command {
         }
 
         character.cashRedirectionMode = params[0].equals("on");
-        character.yellowMessage("Cash Mode Toggled");
+
+        var mode = character.cashRedirectionMode
+            ? "On"
+            : "Off"
+            ;
+
+        character.yellowMessage("Cash Mode Toggled " + mode);
         character.CalculatePlaygroupRates();
 
     }
