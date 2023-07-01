@@ -4,7 +4,7 @@ import client.Character;
 import client.Client;
 import client.command.Command;
 
-public class CashMode extends Command {
+public class CashModeCommand extends Command {
 
     {
         setDescription("Forces exp redirection on or off");

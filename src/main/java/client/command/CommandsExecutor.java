@@ -203,6 +203,7 @@ public class CommandsExecutor {
         addCommand("mobhp", MobHpCommand.class);
         addCommand("pg", PlayGroupCommand.class);
         addCommand("redeem", RedeemCommand.class);
+        addCommand("cashmode", CashModeCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }
