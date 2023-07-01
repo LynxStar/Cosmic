@@ -54,7 +54,7 @@ public class PlayGroupCommand extends Command {
             expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1 + redeemable);
         }
 
-        var redemptionProgress = exp / expNeeded;
+        var redemptionProgress = exp / expNeeded * 100;
 
         character.yellowMessage(String.format("[Cash EXP]: %d/%d %.2f%%", (int)exp, expNeeded, redemptionProgress));
         character.yellowMessage(String.format("[Redeemable]: %d", redeemable));
