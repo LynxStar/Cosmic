@@ -206,7 +206,7 @@ public class PlayGroup {
 
             var dropPos = new Point(character.getPosition());
             dropPos.x += x;
-            dropPos.y += y;
+            dropPos.y -= y;
 
             var mesos = Randomizer.nextInt(10 * level * redeemable);
 
