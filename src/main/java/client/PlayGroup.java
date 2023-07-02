@@ -175,7 +175,17 @@ public class PlayGroup {
 
     }
 
-    public static int getTotalExpNeeded(int card) {
+    public static int getExpNeededForLevel(int card) {
+
+
+        var current = getTotalExpNeeded(card);
+        var previous = getTotalExpNeeded(card);
+
+        return current - previous;
+
+    }
+
+    private static int getTotalExpNeeded(int card) {
 
 
         var growth = Math.pow(1.1, card - 1);

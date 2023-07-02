@@ -4,15 +4,6 @@ import client.Character;
 import client.Client;
 import client.PlayGroup;
 import client.command.Command;
-import server.life.Monster;
-import tools.DatabaseConnection;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class PlayGroupCommand extends Command {
 
@@ -43,7 +34,7 @@ public class PlayGroupCommand extends Command {
         var redemptions = PlayGroup.getCardRedemption(character);
         var redeemable = 0;
 
-        var expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1);
+        var expNeeded = PlayGroup.getExpNeededForLevel(redemptions + 1);
 
         var exp = character.cashexp;
 
@@ -51,7 +42,7 @@ public class PlayGroupCommand extends Command {
         {
             redeemable++;
             exp -= expNeeded;
-            expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1 + redeemable);
+            expNeeded = PlayGroup.getExpNeededForLevel(redemptions + 1 + redeemable);
         }
 
         var redemptionProgress = exp / expNeeded * 100;

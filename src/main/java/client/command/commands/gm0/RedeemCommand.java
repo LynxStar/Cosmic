@@ -4,15 +4,10 @@ import client.Character;
 import client.Client;
 import client.PlayGroup;
 import client.command.Command;
-import client.inventory.Item;
-import server.ItemInformationProvider;
 import tools.DatabaseConnection;
-import tools.Randomizer;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RedeemCommand extends Command {
@@ -37,7 +32,7 @@ public class RedeemCommand extends Command {
         var redemptions = PlayGroup.getCardRedemption(character);
         var redeemable = 0;
 
-        var expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1);
+        var expNeeded = PlayGroup.getExpNeededForLevel(redemptions + 1);
 
         var exp = character.cashexp;
         var expSpent = 0;
@@ -47,11 +42,11 @@ public class RedeemCommand extends Command {
             redeemable++;
             exp -= expNeeded;
             expSpent += expNeeded;
-            expNeeded = PlayGroup.getTotalExpNeeded(redemptions + 1 + redeemable);
+            expNeeded = PlayGroup.getExpNeededForLevel(redemptions + 1 + redeemable);
         }
 
         if(redeemable < 1) {
-            var redemptionProgress = exp / expNeeded;
+            var redemptionProgress = exp / expNeeded * 100;
             character.yellowMessage(String.format("You do not have enough cash exp to redeem. Current progress %d/%d %.2f%%", (int)exp, expNeeded, redemptionProgress));
 
             return;
