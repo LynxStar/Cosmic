@@ -208,7 +208,7 @@ public class PlayGroup {
             dropPos.x += x;
             dropPos.y += y;
 
-            var mesos = Randomizer.nextInt(10 * level);
+            var mesos = Randomizer.nextInt(10 * level * redeemable);
 
             map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
         }
