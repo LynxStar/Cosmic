@@ -6597,7 +6597,10 @@ public class Character extends AbstractCharacterObject {
         CalculatePlaygroupRates();
 
         if(redeemMode == 1) {
-            PlayGroup.generateRedemptions(this, 1);
+
+            int redeems = level / 10;
+
+            PlayGroup.generateRedemptions(this, redeems);
         }
 
     }
