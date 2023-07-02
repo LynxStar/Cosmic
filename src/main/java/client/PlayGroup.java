@@ -175,22 +175,22 @@ public class PlayGroup {
 
     }
 
-    public static int getExpNeededForLevel(int card) {
+    public static int getExpNeededForLevel(double cardLevel) {
 
 
-        var current = getTotalExpNeeded(card);
-        var previous = getTotalExpNeeded(card);
+        var start = 1000;
+        var factor = 1.5;
+        var growthBase = 100;
 
-        return current - previous;
+        var expo = (cardLevel / 10) * factor + 1;
 
-    }
+        var growth = (cardLevel - 1)*growthBase*expo;
 
-    private static int getTotalExpNeeded(int card) {
+        var cost = start + growth;
 
+        cost = Math.min(cost, 2500000);
 
-        var growth = Math.pow(1.1, card - 1);
-
-        return (int)(1000*card*growth);
+        return (int)cost;
 
     }
 
