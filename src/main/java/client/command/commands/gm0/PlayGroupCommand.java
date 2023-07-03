@@ -23,12 +23,11 @@ public class PlayGroupCommand extends Command {
 
         var level = character.getLevel();
 
-        var median = (int)Math.round(levelData.getThird());
-        var average = levelData.getSecond() - levelData.getFirst();
+        var average = (int)Math.round(levelData.getThird());
 
-        var diff = level - median;
-        character.yellowMessage(String.format("[Playgroup]: %d to %d Median: [%d]", levelData.getFirst(), levelData.getSecond(), median));
-        character.yellowMessage(String.format("[Distance]: %d from Centerpoint: %d", diff, average));
+        var diff = level - average;
+        character.yellowMessage(String.format("[Playgroup]: %d to %d", levelData.getFirst(), levelData.getSecond(), average));
+        character.yellowMessage(String.format("[Distance]: %d from Average: %d", diff, average));
         character.yellowMessage(String.format("[EXP Rate]: %.2f%%", character.playgroupEXPRate * 100));
         character.yellowMessage(String.format("[Drop Rate]: %.2f%%", character.playgroupDropRate * 100));
 

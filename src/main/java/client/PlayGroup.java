@@ -36,9 +36,9 @@ public class PlayGroup {
 
         var minLevel = Collections.min(levels);
         var maxLevel = Collections.max(levels);
-        var median = calculateMedian(levels);
 
-        return new Triple<>(minLevel,maxLevel,median);
+        var average = levels.stream().mapToInt(Integer::intValue).average();
+        return new Triple<>(minLevel,maxLevel,average.getAsDouble());
 
     }
 
@@ -46,22 +46,16 @@ public class PlayGroup {
 
         var levelData = getPGLevelData();
 
-        var median = levelData.getThird();
-        var average = (levelData.getSecond() + levelData.getFirst()) / 2;
+        var average = levelData.getThird();
 
         var level = character.getLevel();
 
-        var levelDiff = level;
+        var levelDiff = (int)Math.round(level - average);
 
         Float exp = 1f;
         Double drop = 1d;
 
-        if(level <= median) {
-
-            levelDiff -= median > average
-                ? median
-                : average
-                ;
+        if(level <= average) {
 
             if(levelDiff <= -5) {
                 exp = 3.5f;
@@ -80,11 +74,6 @@ public class PlayGroup {
             }
         }
         else if(levelDiff > 1) {
-
-            levelDiff -= median < average
-                ? median
-                : average
-                ;
 
             if(levelDiff < 2) {
                 exp = 1f;
