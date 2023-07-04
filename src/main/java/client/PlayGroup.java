@@ -19,7 +19,6 @@ public class PlayGroup {
     public static Triple<Integer,Integer,Double> getPGLevelData(Character character) {
 
         var levels = new ArrayList<Integer>();
-        var weightedLevels = new ArrayList<Integer>();
 
         var sql = """
             SELECT max(level), p.weight\s
@@ -43,8 +42,10 @@ public class PlayGroup {
                     var level = rs.getInt("level");
                     var weight = rs.getInt("weight");
 
-                    levels.add(level);
-                    weightedLevels.add(level * weight);
+                    for(var i = 0; i < weight; i++) {
+                        levels.add(level);
+                    }
+
                 }
 
             }
@@ -58,7 +59,7 @@ public class PlayGroup {
         var minLevel = Collections.min(levels);
         var maxLevel = Collections.max(levels);
 
-        var anchor = weightedLevels.stream().mapToInt(Integer::intValue).average();
+        var anchor = levels.stream().mapToInt(Integer::intValue).average();
         return new Triple<>(minLevel,maxLevel,anchor.getAsDouble());
 
     }
