@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `playgroups` (
   `redemptions` int(11) NOT NULL DEFAULT '0',
   `redeemMode` int(11) NOT NULL DEFAULT '0',
   `playgroup` int(11) NOT NULL DEFAULT '0',
+  `weight` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_characterid` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
   INDEX (playgroup)
