@@ -27,7 +27,7 @@ public class PlayGroupCommand extends Command {
 
         var diff = level - average;
         character.yellowMessage(String.format("[Playgroup]: %d to %d", levelData.getFirst(), levelData.getSecond(), average));
-        character.yellowMessage(String.format("[Distance]: %d from Average: %d", diff, average));
+        character.yellowMessage(String.format("[Distance]: %d from Anchor Point: %d", diff, average));
         character.yellowMessage(String.format("[EXP Rate]: %.2f%%", character.playgroupEXPRate * 100));
         character.yellowMessage(String.format("[Drop Rate]: %.2f%%", character.playgroupDropRate * 100));
 
