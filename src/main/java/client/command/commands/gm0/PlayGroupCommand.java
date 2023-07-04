@@ -23,11 +23,11 @@ public class PlayGroupCommand extends Command {
 
         var level = character.getLevel();
 
-        var average = (int)Math.round(levelData.getThird());
+        var anchor = (int)Math.round(levelData.getThird());
 
-        var diff = level - average;
-        character.yellowMessage(String.format("[Playgroup]: %d to %d", levelData.getFirst(), levelData.getSecond(), average));
-        character.yellowMessage(String.format("[Distance]: %d from Anchor Point: %d", diff, average));
+        var diff = level - anchor;
+        character.yellowMessage(String.format("[Playgroup]: %d to %d", levelData.getFirst(), levelData.getSecond(), anchor));
+        character.yellowMessage(String.format("[Distance]: %d from [Anchor Point]: %d", diff, anchor));
         character.yellowMessage(String.format("[EXP Rate]: %.2f%%", character.playgroupEXPRate * 100));
         character.yellowMessage(String.format("[Drop Rate]: %.2f%%", character.playgroupDropRate * 100));
 
@@ -48,7 +48,7 @@ public class PlayGroupCommand extends Command {
         var redemptionProgress = exp / expNeeded * 100;
 
         character.yellowMessage(String.format("[Cash EXP]: %d / %d %.2f%%", (int)exp, expNeeded, redemptionProgress));
-        character.yellowMessage(String.format("[Redeemable]: %d Cash Level: %d", redeemable, redemptions));
+        character.yellowMessage(String.format("[Redeemable]: %d [Cash Level]: %d", redeemable, redemptions));
 
     }
 
