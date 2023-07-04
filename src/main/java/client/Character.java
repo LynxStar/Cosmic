@@ -6982,7 +6982,7 @@ public class Character extends AbstractCharacterObject {
                     SELECT c.*, p.cashexp, p.redemptions, p.redeemMode, p.playgroup
                     FROM cosmic.characters c
                     INNER JOIN cosmic.accounts a ON a.id = c.accountid
-                    INNER JOIN cosmic.playgroups p ON c.id = playgroup.characterid
+                    INNER JOIN cosmic.playgroups p ON c.id = p.characterid
                     WHERE c.id = ?""";
 
             // Character info
@@ -8398,7 +8398,7 @@ public class Character extends AbstractCharacterObject {
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
             try {
-                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, cashexp = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
+                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, level);    // thanks CanIGetaPR for noticing an unnecessary "level" limitation when persisting DB data
                     ps.setInt(2, fame);
 
@@ -8512,16 +8512,24 @@ public class Character extends AbstractCharacterObject {
                     ps.setTimestamp(53, new Timestamp(lastExpGainTime));
                     ps.setInt(54, ariantPoints);
                     ps.setBoolean(55, canRecvPartySearchInvite);
-
-                    ps.setInt(56, (int)cashexp);
-
-                    ps.setInt(57, id);
+                    ps.setInt(56, id);
 
                     int updateRows = ps.executeUpdate();
                     if (updateRows < 1) {
                         throw new RuntimeException("Character not in database (" + id + ")");
                     }
                 }
+
+                try (PreparedStatement ps = con.prepareStatement("UPDATE playgroups SET cashexp = ? WHERE characterid = ?"))
+                {
+
+                    ps.setInt(1, (int)cashexp);
+                    ps.setInt(2, id);
+
+                    ps.executeUpdate();
+                }
+
+
 
                 List<Pet> petList = new LinkedList<>();
                 petLock.lock();
