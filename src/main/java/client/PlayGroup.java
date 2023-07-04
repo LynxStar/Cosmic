@@ -20,8 +20,14 @@ public class PlayGroup {
 
         var levels = new ArrayList<Integer>();
 
+        var sql = """
+            SELECT level 
+            FROM cosmic.characters c
+            INNER JOIN cosmic.playgroups p ON c.id = p.characterid
+            """;
+
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT MAX(level) as 'level' FROM cosmic.characters WHERE accountid != 1 GROUP BY accountid"))
+             PreparedStatement ps = con.prepareStatement(sql))
         {
             try(ResultSet rs = ps.executeQuery())
             {
@@ -33,6 +39,10 @@ public class PlayGroup {
             }
         }
         catch(SQLException e) {}
+
+        if(levels.isEmpty()) {
+            return new Triple<>(1,1,1d);
+        }
 
         var minLevel = Collections.min(levels);
         var maxLevel = Collections.max(levels);
@@ -138,12 +148,12 @@ public class PlayGroup {
 
     public static int getCardRedemption(Character character) {
 
-        var id = character.getAccountID();
+        var id = character.getId();
 
         var redemptions = 0;
 
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT cardsRedeemed FROM cosmic.accounts WHERE id = ?"))
+             PreparedStatement ps = con.prepareStatement("SELECT redemptions FROM cosmic.playgroups WHERE characterid = ?"))
         {
 
             ps.setInt(1, id);
@@ -153,7 +163,7 @@ public class PlayGroup {
 
                 while (rs.next())
                 {
-                    redemptions = rs.getInt("cardsRedeemed");
+                    redemptions = rs.getInt("redemptions");
                 }
 
             }
@@ -188,6 +198,10 @@ public class PlayGroup {
         var map = character.getMap();
         var level = character.getLevel();
 
+        var levelBonus = Math.max(1, level / 20d);
+
+        var mesosMax = (int)(10 * level * redeemable * levelBonus);
+
         for(var i = 0; i < 25; i++) {
 
             var x = Randomizer.nextInt((i + 1) * 10) - ((i + 1) * 5);
@@ -197,9 +211,20 @@ public class PlayGroup {
             dropPos.x += x;
             dropPos.y -= y;
 
-            var mesos = Randomizer.nextInt(10 * level * redeemable);
+            var mesos = Randomizer.nextInt(mesosMax);
 
             map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
+        }
+
+        var redeemMultiplier = (int)Math.floor(levelBonus);
+        redeemable *= redeemMultiplier;
+
+        var fractionalBonus = levelBonus - redeemMultiplier;
+
+        var fractionalRoll = Randomizer.nextDouble();
+
+        if(fractionalRoll > fractionalBonus) {
+            redeemable++;
         }
 
         for (var i = 0; i < redeemable; i++) {

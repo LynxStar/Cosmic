@@ -52,6 +52,18 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   INDEX (id, nxCredit, maplePoint, nxPrepaid)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `playgroups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `characterid` int(11) NOT NULL DEFAULT '0',
+  `cashexp` int(11) NOT NULL DEFAULT '0',
+  `redemptions` int(11) NOT NULL DEFAULT '0',
+  `redeemMode` int(11) NOT NULL DEFAULT '0',
+  `playgroup` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_characterid` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
+  INDEX (playgroup)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `alliance` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(13) NOT NULL,
@@ -204,7 +216,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `lastExpGainTime` timestamp NOT NULL DEFAULT '2015-01-01 05:00:00',
   `partySearch` tinyint(1) NOT NULL DEFAULT '1',
   `jailexpire` bigint(20) NOT NULL DEFAULT '0',
-  `cashexp` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `accountid` (`accountid`),
   KEY `party` (`party`),

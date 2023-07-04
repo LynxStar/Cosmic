@@ -264,6 +264,7 @@ public class Character extends AbstractCharacterObject {
     public double playgroupDropRate = 1;
     public double cashexp = 0;
     public int redeemMode = 0;
+    public int playgroup = 0;
 
     public boolean cashRedirectionMode = false;
 
@@ -3144,6 +3145,9 @@ public class Character extends AbstractCharacterObject {
         if(lost > 0)
         {
             cashexp += lost;
+        }
+        else if(redeemMode == 1) {
+            cashexp += exp * .1;
         }
 
         return (long)adjustedAmount;
@@ -6597,10 +6601,7 @@ public class Character extends AbstractCharacterObject {
         CalculatePlaygroupRates();
 
         if(redeemMode == 1) {
-
-            int redeems = level / 10;
-
-            PlayGroup.generateRedemptions(this, redeems);
+            PlayGroup.generateRedemptions(this, 1);
         }
 
     }
@@ -6890,6 +6891,7 @@ public class Character extends AbstractCharacterObject {
 
             ret.cashexp = rs.getInt("cashexp");
             ret.redeemMode = rs.getInt("redeemMode");
+            ret.playgroup = rs.getInt("playgroup");
             ret.CalculatePlaygroupRates();
 
             if (equipped != null) {  // players can have no equipped items at all, ofc
@@ -6977,9 +6979,10 @@ public class Character extends AbstractCharacterObject {
             final World wserv;
 
             var sql = """
-                    SELECT c.*, a.redeemMode
+                    SELECT c.*, p.cashexp, p.redemptions, p.redeemMode, p.playgroup
                     FROM cosmic.characters c
                     INNER JOIN cosmic.accounts a ON a.id = c.accountid
+                    INNER JOIN cosmic.playgroups p ON c.id = playgroup.characterid
                     WHERE c.id = ?""";
 
             // Character info
@@ -7057,6 +7060,7 @@ public class Character extends AbstractCharacterObject {
 
                     ret.cashexp = rs.getInt("cashexp");
                     ret.redeemMode = rs.getInt("redeemMode");
+                    ret.playgroup = rs.getInt("playgroup");
                     ret.CalculatePlaygroupRates();
 
                     wserv = Server.getInstance().getWorld(ret.world);
@@ -8338,6 +8342,12 @@ public class Character extends AbstractCharacterObject {
                         }
                         ps.executeBatch();
                     }
+                }
+
+                try (PreparedStatement ps = con.prepareStatement("INSERT INTO playgroups (`characterid`, `cashexp`, `redemptions`, `redeemMode`, `playgroup`) VALUES (?, 0, ?, 0, 0)")) {
+                    ps.setInt(1, id);
+                    ps.setInt(2, 30);
+                    ps.executeUpdate();
                 }
                 
                 con.commit();

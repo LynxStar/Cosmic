@@ -60,10 +60,10 @@ public class RedeemCommand extends Command {
 
         redemptions += redeemable;
 
-        var id = character.getAccountID();
+        var id = character.getId();
 
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE accounts SET cardsRedeemed = ? WHERE id = ?"))
+             PreparedStatement ps = con.prepareStatement("UPDATE playgroups SET redemptions = ? WHERE characterid = ?"))
         {
 
             ps.setInt(1, redemptions);

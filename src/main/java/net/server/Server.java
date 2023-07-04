@@ -1524,9 +1524,10 @@ public class Server {
             }
 
             var sql = """
-                SELECT c.*, a.redeemMode
+                SELECT c.*, p.cashexp, p.redemptions, p.redeemMode, p.playgroup
                 FROM cosmic.characters c
                 INNER JOIN cosmic.accounts a ON a.id = c.accountid
+                INNER JOIN cosmic.playgroups p ON c.id = p.characterid
                 WHERE accountid = ?
                 ORDER BY world, id""";
 
