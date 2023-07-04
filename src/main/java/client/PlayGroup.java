@@ -22,11 +22,12 @@ public class PlayGroup {
         var weightedLevels = new ArrayList<Integer>();
 
         var sql = """
-            SELECT level, weight 
+            SELECT max(level), p.weight\s
             FROM cosmic.characters c
             INNER JOIN cosmic.playgroups p ON c.id = p.characterid
             WHERE p.playgroup = ?
-            """;
+            GROUP BY c.accountid, p.weight
+        """;
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql))
