@@ -19,7 +19,7 @@ public class PlayGroupCommand extends Command {
 
         character.CalculatePlaygroupRates();
 
-        var levelData = PlayGroup.getPGLevelData();
+        var levelData = PlayGroup.getPGLevelData(character);
 
         var level = character.getLevel();
 

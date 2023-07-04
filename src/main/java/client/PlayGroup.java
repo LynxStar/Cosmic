@@ -16,7 +16,7 @@ import java.util.Collections;
 
 public class PlayGroup {
 
-    public static Triple<Integer,Integer,Double> getPGLevelData() {
+    public static Triple<Integer,Integer,Double> getPGLevelData(Character character) {
 
         var levels = new ArrayList<Integer>();
         var weightedLevels = new ArrayList<Integer>();
@@ -25,11 +25,15 @@ public class PlayGroup {
             SELECT level, weight 
             FROM cosmic.characters c
             INNER JOIN cosmic.playgroups p ON c.id = p.characterid
+            WHERE p.playgroup = ?
             """;
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql))
         {
+
+            ps.setInt(1, character.playgroup);
+
             try(ResultSet rs = ps.executeQuery())
             {
                 while (rs.next())
@@ -60,7 +64,7 @@ public class PlayGroup {
 
     public static Pair<Float, Double> calculateRates(Character character) {
 
-        var levelData = getPGLevelData();
+        var levelData = getPGLevelData(character);
 
         var anchor = levelData.getThird();
 
