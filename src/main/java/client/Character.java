@@ -8344,7 +8344,7 @@ public class Character extends AbstractCharacterObject {
                     }
                 }
 
-                try (PreparedStatement ps = con.prepareStatement("INSERT INTO playgroups (`characterid`, `cashexp`, `redemptions`, `redeemMode`, `playgroup`) VALUES (?, 0, ?, 0, 0)")) {
+                try (PreparedStatement ps = con.prepareStatement("INSERT INTO playgroups (`characterid`, `cashexp`, `redemptions`, `redeemMode`, `playgroup`, `weight`) VALUES (?, 0, ?, 0, 0, 1)")) {
                     ps.setInt(1, id);
                     ps.setInt(2, 30);
                     ps.executeUpdate();

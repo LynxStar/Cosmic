@@ -21,7 +21,7 @@ public class PlayGroup {
         var levels = new ArrayList<Integer>();
 
         var sql = """
-            SELECT level 
+            SELECT level, weight 
             FROM cosmic.characters c
             INNER JOIN cosmic.playgroups p ON c.id = p.characterid
             """;
@@ -33,7 +33,11 @@ public class PlayGroup {
             {
                 while (rs.next())
                 {
-                    levels.add(rs.getInt("level"));
+
+                    var level = rs.getInt("level");
+                    var weight = rs.getInt("weight");
+
+                    levels.add(level * weight);
                 }
 
             }
