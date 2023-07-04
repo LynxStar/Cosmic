@@ -21,7 +21,7 @@ public class PlayGroup {
         var levels = new ArrayList<Integer>();
 
         var sql = """
-            SELECT max(level), p.weight\s
+            SELECT max(level) as 'level', p.weight
             FROM cosmic.characters c
             INNER JOIN cosmic.playgroups p ON c.id = p.characterid
             WHERE p.playgroup = ?
@@ -50,7 +50,10 @@ public class PlayGroup {
 
             }
         }
-        catch(SQLException e) {}
+        catch(SQLException e)
+        {
+            var foo = 0;
+        }
 
         if(levels.isEmpty()) {
             return new Triple<>(1,1,1d);
