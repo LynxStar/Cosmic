@@ -1347,36 +1347,36 @@
   <imgdir name="2101004">
     <string name="name" value="Fire Arrow"/>
     <string name="desc" value="[Master Level : 30]\nAttacks a single monster with a fire arrow using the magic power. Applies 1.5 times the damage to the ice-based enemies, whereas fire-based enemies receive half the damage, if that."/>
-    <string name="h1" value="MP -14; Basic attack 33, mastery 15%"/>
-    <string name="h2" value="MP -14; Basic attack 36, mastery 15%"/>
-    <string name="h3" value="MP -14; Basic attack 39, mastery 15%"/>
-    <string name="h4" value="MP -14; Basic attack 42, mastery 20%"/>
-    <string name="h5" value="MP -14; Basic attack 45, mastery 20%"/>
-    <string name="h6" value="MP -14; Basic attack 48, mastery 20%"/>
-    <string name="h7" value="MP -14; Basic attack 51, mastery 25%"/>
-    <string name="h8" value="MP -14; Basic attack 54, mastery 25%"/>
-    <string name="h9" value="MP -14; Basic attack 57, mastery 25%"/>
-    <string name="h10" value="MP -14; Basic attack 60, mastery 30%"/>
-    <string name="h11" value="MP -14; Basic attack 63, mastery 30%"/>
-    <string name="h12" value="MP -14; Basic attack 66, mastery 30%"/>
-    <string name="h13" value="MP -14; Basic attack 69, mastery 30%"/>
-    <string name="h14" value="MP -14; Basic attack 72, mastery 35%"/>
-    <string name="h15" value="MP -14; Basic attack 75, mastery 35%"/>
-    <string name="h16" value="MP -28; Basic attack 78, mastery 40%"/>
-    <string name="h17" value="MP -28; Basic attack 81, mastery 40%"/>
-    <string name="h18" value="MP -28; Basic attack 84, mastery 40%"/>
-    <string name="h19" value="MP -28; Basic attack 87, mastery 45%"/>
-    <string name="h20" value="MP -28; Basic attack 90, mastery 45%"/>
-    <string name="h21" value="MP -28; Basic attack 93, mastery 45%"/>
-    <string name="h22" value="MP -28; Basic attack 96, mastery 50%"/>
-    <string name="h23" value="MP -28; Basic attack 99, mastery 50%"/>
-    <string name="h24" value="MP -28; Basic attack 102, mastery 50%"/>
-    <string name="h25" value="MP -28; Basic attack 105, mastery 55%"/>
-    <string name="h26" value="MP -28; Basic attack 108, mastery 55%"/>
-    <string name="h27" value="MP -28; Basic attack 111, mastery 55%"/>
-    <string name="h28" value="MP -28; Basic attack 114, mastery 60%"/>
-    <string name="h29" value="MP -28; Basic attack 117, mastery 60%"/>
-    <string name="h30" value="MP -28; Basic attack 120, mastery 60%"/>
+    <string name="h1" value="MP -14; Basic attack 34, mastery 15%"/>
+    <string name="h2" value="MP -14; Basic attack 38, mastery 15%"/>
+    <string name="h3" value="MP -14; Basic attack 42, mastery 15%"/>
+    <string name="h4" value="MP -14; Basic attack 46, mastery 20%"/>
+    <string name="h5" value="MP -14; Basic attack 50, mastery 20%"/>
+    <string name="h6" value="MP -14; Basic attack 54, mastery 20%"/>
+    <string name="h7" value="MP -14; Basic attack 58, mastery 25%"/>
+    <string name="h8" value="MP -14; Basic attack 62, mastery 25%"/>
+    <string name="h9" value="MP -14; Basic attack 66, mastery 25%"/>
+    <string name="h10" value="MP -14; Basic attack 70, mastery 30%"/>
+    <string name="h11" value="MP -14; Basic attack 74, mastery 30%"/>
+    <string name="h12" value="MP -14; Basic attack 78, mastery 30%"/>
+    <string name="h13" value="MP -14; Basic attack 82, mastery 30%"/>
+    <string name="h14" value="MP -14; Basic attack 86, mastery 35%"/>
+    <string name="h15" value="MP -14; Basic attack 90, mastery 35%"/>
+    <string name="h16" value="MP -28; Basic attack 94, mastery 40%"/>
+    <string name="h17" value="MP -28; Basic attack 98, mastery 40%"/>
+    <string name="h18" value="MP -28; Basic attack 102, mastery 40%"/>
+    <string name="h19" value="MP -28; Basic attack 106, mastery 45%"/>
+    <string name="h20" value="MP -28; Basic attack 110, mastery 45%"/>
+    <string name="h21" value="MP -28; Basic attack 114, mastery 45%"/>
+    <string name="h22" value="MP -28; Basic attack 118, mastery 50%"/>
+    <string name="h23" value="MP -28; Basic attack 122, mastery 50%"/>
+    <string name="h24" value="MP -28; Basic attack 126, mastery 50%"/>
+    <string name="h25" value="MP -28; Basic attack 130, mastery 55%"/>
+    <string name="h26" value="MP -28; Basic attack 134, mastery 55%"/>
+    <string name="h27" value="MP -28; Basic attack 138, mastery 55%"/>
+    <string name="h28" value="MP -28; Basic attack 142, mastery 60%"/>
+    <string name="h29" value="MP -28; Basic attack 146, mastery 60%"/>
+    <string name="h30" value="MP -28; Basic attack 150, mastery 60%"/>
   </imgdir>
   <imgdir name="2101005">
     <string name="name" value="Poison Breath"/>
