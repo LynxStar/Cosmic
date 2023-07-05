@@ -3,6 +3,8 @@ package client;
 import client.inventory.Item;
 import com.oracle.truffle.js.runtime.util.Triple;
 import com.oracle.truffle.js.runtime.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.DatabaseConnection;
 import tools.Randomizer;
 
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class PlayGroup {
+
+    private static final Logger log = LoggerFactory.getLogger(PlayGroup.class);
 
     public static Triple<Integer,Integer,Double> getPGLevelData(Character character) {
 
@@ -150,17 +154,6 @@ public class PlayGroup {
 
     }
 
-    public static double calculateMedian(ArrayList<Integer> numbers) {
-        Collections.sort(numbers);
-
-        int size = numbers.size();
-        if (size % 2 == 0) {
-            return (numbers.get(size / 2 - 1) + numbers.get(size / 2)) / 2.0;
-        } else {
-            return numbers.get(size / 2);
-        }
-    }
-
     public static int getCardRedemption(Character character) {
 
         var id = character.getId();
@@ -241,6 +234,8 @@ public class PlayGroup {
         if(fractionalRoll > fractionalBonus) {
             redeemable++;
         }
+
+        log.debug("Performing redemption for {}. Base: {} Roll: {} Outcome: {}", character.getName(), levelBonus, fractionalRoll, redeemable);
 
         for (var i = 0; i < redeemable; i++) {
 
