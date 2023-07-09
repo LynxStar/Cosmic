@@ -263,8 +263,24 @@ public class Character extends AbstractCharacterObject {
     public Float playgroupEXPRate = 1.0f;
     public double playgroupDropRate = 1;
     public double cashexp = 0;
+
     public int redeemMode = 0;
     public int playgroup = 0;
+
+
+    public double pgBonusExpRate = 1;
+    public double pgBonusDropRate = 1;
+
+    private static void setPlayGroupFields(ResultSet rs, Character ret) throws SQLException {
+
+        ret.cashexp = rs.getInt("cashexp");
+        ret.redeemMode = rs.getInt("redeemMode");
+        ret.playgroup = rs.getInt("playgroup");
+        ret.pgBonusExpRate = rs.getDouble("exprate");
+        ret.pgBonusDropRate = rs.getDouble("droprate");
+
+        ret.CalculatePlaygroupRates();
+    }
 
     public boolean cashRedirectionMode = false;
 
@@ -6889,10 +6905,7 @@ public class Character extends AbstractCharacterObject {
             ret.jobRank = rs.getInt("jobRank");
             ret.jobRankMove = rs.getInt("jobRankMove");
 
-            ret.cashexp = rs.getInt("cashexp");
-            ret.redeemMode = rs.getInt("redeemMode");
-            ret.playgroup = rs.getInt("playgroup");
-            ret.CalculatePlaygroupRates();
+            setPlayGroupFields(rs, ret);
 
             if (equipped != null) {  // players can have no equipped items at all, ofc
                 Inventory inv = ret.inventory[InventoryType.EQUIPPED.ordinal()];
@@ -7058,10 +7071,7 @@ public class Character extends AbstractCharacterObject {
                     ret.lastExpGainTime = rs.getTimestamp("lastExpGainTime").getTime();
                     ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
 
-                    ret.cashexp = rs.getInt("cashexp");
-                    ret.redeemMode = rs.getInt("redeemMode");
-                    ret.playgroup = rs.getInt("playgroup");
-                    ret.CalculatePlaygroupRates();
+                    setPlayGroupFields(rs, ret);
 
                     wserv = Server.getInstance().getWorld(ret.world);
 

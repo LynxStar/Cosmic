@@ -146,6 +146,9 @@ public class PlayGroup {
             }
         }
 
+        exp *= (float)character.pgBonusExpRate;
+        drop *= character.pgBonusDropRate;
+
         if(character.cashRedirectionMode) {
             exp = 0.1f;
         }
