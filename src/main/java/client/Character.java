@@ -267,17 +267,11 @@ public class Character extends AbstractCharacterObject {
     public int redeemMode = 0;
     public int playgroup = 0;
 
-
-    public double pgBonusExpRate = 1;
-    public double pgBonusDropRate = 1;
-
     private static void setPlayGroupFields(ResultSet rs, Character ret) throws SQLException {
 
         ret.cashexp = rs.getInt("cashexp");
         ret.redeemMode = rs.getInt("redeemMode");
         ret.playgroup = rs.getInt("playgroup");
-        ret.pgBonusExpRate = rs.getDouble("exprate");
-        ret.pgBonusDropRate = rs.getDouble("droprate");
 
         ret.CalculatePlaygroupRates();
     }

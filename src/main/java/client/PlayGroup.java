@@ -75,6 +75,40 @@ public class PlayGroup {
 
         var levelData = getPGLevelData(character);
 
+        float bonusExpRate = 1;
+        double bonusDropRate = 1;
+
+        var sql = """
+            SELECT exprate, droprate
+            FROM cosmic.playgroups p
+            WHERE p.characterid = ?
+        """;
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql))
+        {
+
+            ps.setInt(1, character.getId());
+
+            try(ResultSet rs = ps.executeQuery())
+            {
+                while (rs.next())
+                {
+
+                    bonusExpRate = rs.getFloat("exprate");
+                    bonusDropRate = rs.getDouble("droprate");
+
+                }
+
+            }
+        }
+        catch(SQLException e)
+        {
+            var foo = 0;
+        }
+
+
+
         var anchor = levelData.getThird();
 
         var level = character.getLevel();
@@ -146,8 +180,8 @@ public class PlayGroup {
             }
         }
 
-        exp *= (float)character.pgBonusExpRate;
-        drop *= character.pgBonusDropRate;
+        exp *= bonusExpRate;
+        drop *= bonusDropRate;
 
         if(character.cashRedirectionMode) {
             exp = 0.1f;
