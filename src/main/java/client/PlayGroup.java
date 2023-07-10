@@ -261,10 +261,10 @@ public class PlayGroup {
             map.spawnMesoDrop(mesos,  dropPos, character, character, true, (byte)1);
         }
 
-        var redeemMultiplier = (int)Math.floor(levelBonus);
-        redeemable *= redeemMultiplier;
+        var original = redeemable;
+        redeemable *= levelBonus;
 
-        var fractionalBonus = levelBonus - redeemMultiplier;
+        var fractionalBonus = redeemable - Math.floor(redeemable);
 
         var fractionalRoll = Randomizer.nextDouble();
 
@@ -272,7 +272,7 @@ public class PlayGroup {
             redeemable++;
         }
 
-        log.debug("Performing redemption for {}. Base: {} Roll: {} Outcome: {}", character.getName(), levelBonus, fractionalRoll, redeemable);
+        log.debug("Performing redemption for {}. Base: {} Bonus: {} Outcome: {}", character.getName(), original, levelBonus, redeemable);
 
         for (var i = 0; i < redeemable; i++) {
 
