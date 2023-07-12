@@ -81992,7 +81992,7 @@
     <int name="SN" value="50200128"/>
     <int name="ItemId" value="5510000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="500"/>
+    <int name="Price" value="250"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="7"/>
     <int name="Gender" value="2"/>
