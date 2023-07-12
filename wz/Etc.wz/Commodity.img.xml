@@ -82192,7 +82192,7 @@
     <int name="SN" value="50200148"/>
     <int name="ItemId" value="5610000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="4200"/>
+    <int name="Price" value="820"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="9"/>
     <int name="Gender" value="2"/>
@@ -82202,7 +82202,7 @@
     <int name="SN" value="50200149"/>
     <int name="ItemId" value="5610001"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="5000"/>
+    <int name="Price" value="1000"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="9"/>
     <int name="Gender" value="2"/>
