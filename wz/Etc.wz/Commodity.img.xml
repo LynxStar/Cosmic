@@ -80713,7 +80713,7 @@
     <int name="SN" value="50200001"/>
     <int name="ItemId" value="5130000"/>
     <int name="Count" value="5"/>
-    <int name="Price" value="3200"/>
+    <int name="Price" value="640"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="5"/>
     <int name="Gender" value="2"/>
@@ -80723,7 +80723,7 @@
     <int name="SN" value="50200002"/>
     <int name="ItemId" value="5130000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="700"/>
+    <int name="Price" value="140"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="5"/>
     <int name="Gender" value="2"/>
