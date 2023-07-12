@@ -158,7 +158,7 @@ public final class CashOperationHandler extends AbstractPacketHandler {
                     byte mode = p.readByte();
                     if (mode == 0) {
                         byte type = p.readByte();
-                        if (cs.getCash(cash) < 4000) {
+                        if (cs.getCash(cash) < 750) {
                             c.enableCSActions();
                             return;
                         }
@@ -167,7 +167,7 @@ public final class CashOperationHandler extends AbstractPacketHandler {
                             c.enableCSActions();
                             return;
                         }
-                        cs.gainCash(cash, -4000);
+                        cs.gainCash(cash, -750);
                         if (chr.gainSlots(type, qty, false)) {
                             c.sendPacket(PacketCreator.showBoughtInventorySlots(type, chr.getSlots(type)));
                             c.sendPacket(PacketCreator.showCash(chr));

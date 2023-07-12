@@ -20461,7 +20461,7 @@
     <int name="SN" value="10002042"/>
     <int name="ItemId" value="9110000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6400"/>
+    <int name="Price" value="1280"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="12"/>
     <int name="Gender" value="2"/>
@@ -20471,7 +20471,7 @@
     <int name="SN" value="10002043"/>
     <int name="ItemId" value="9111000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6400"/>
+    <int name="Price" value="1280"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="12"/>
     <int name="Gender" value="2"/>
@@ -20481,7 +20481,7 @@
     <int name="SN" value="10002044"/>
     <int name="ItemId" value="9112000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6800"/>
+    <int name="Price" value="1360"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="12"/>
     <int name="Gender" value="2"/>
@@ -20491,7 +20491,7 @@
     <int name="SN" value="10002045"/>
     <int name="ItemId" value="9114000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6800"/>
+    <int name="Price" value="1360"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="12"/>
     <int name="Gender" value="2"/>
@@ -48236,7 +48236,7 @@
     <int name="SN" value="10102339"/>
     <int name="ItemId" value="9110000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="3500"/>
+    <int name="Price" value="750"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="15"/>
     <int name="Gender" value="2"/>
@@ -48247,7 +48247,7 @@
     <int name="SN" value="10102340"/>
     <int name="ItemId" value="9111000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="3500"/>
+    <int name="Price" value="750"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="15"/>
     <int name="Gender" value="2"/>
@@ -48258,7 +48258,7 @@
     <int name="SN" value="10102341"/>
     <int name="ItemId" value="9112000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="3700"/>
+    <int name="Price" value="750"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="15"/>
     <int name="Gender" value="2"/>
@@ -48269,7 +48269,7 @@
     <int name="SN" value="10102342"/>
     <int name="ItemId" value="9114000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="3700"/>
+    <int name="Price" value="750"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="15"/>
     <int name="Gender" value="2"/>
@@ -81629,7 +81629,7 @@
     <int name="SN" value="50200092"/>
     <int name="ItemId" value="9110000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6400"/>
+    <int name="Price" value="1280"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="6"/>
     <int name="Gender" value="2"/>
@@ -81639,7 +81639,7 @@
     <int name="SN" value="50200093"/>
     <int name="ItemId" value="9111000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6400"/>
+    <int name="Price" value="1280"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="6"/>
     <int name="Gender" value="2"/>
@@ -81649,7 +81649,7 @@
     <int name="SN" value="50200094"/>
     <int name="ItemId" value="9112000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6800"/>
+    <int name="Price" value="1360"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="6"/>
     <int name="Gender" value="2"/>
@@ -81659,7 +81659,7 @@
     <int name="SN" value="50200095"/>
     <int name="ItemId" value="9114000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6800"/>
+    <int name="Price" value="1360"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="6"/>
     <int name="Gender" value="2"/>
@@ -81699,7 +81699,7 @@
     <int name="SN" value="50200099"/>
     <int name="ItemId" value="9113000"/>
     <int name="Count" value="1"/>
-    <int name="Price" value="6800"/>
+    <int name="Price" value="1280"/>
     <int name="Period" value="90"/>
     <int name="Priority" value="6"/>
     <int name="Gender" value="2"/>
