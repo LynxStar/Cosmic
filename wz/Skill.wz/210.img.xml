@@ -168,8 +168,8 @@
         <imgdir name="1">
           <string name="hs" value="h1"/>
           <int name="mpCon" value="10"/>
-          <int name="time" value="10"/>
-          <int name="mad" value="1"/>
+          <int name="time" value="50"/>
+          <int name="mad" value="2"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -177,7 +177,7 @@
           <string name="hs" value="h2"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="20"/>
-          <int name="mad" value="2"/>
+          <int name="mad" value="4"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -185,7 +185,7 @@
           <string name="hs" value="h3"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="30"/>
-          <int name="mad" value="3"/>
+          <int name="mad" value="6"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -193,7 +193,7 @@
           <string name="hs" value="h4"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="40"/>
-          <int name="mad" value="4"/>
+          <int name="mad" value="8"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -201,7 +201,7 @@
           <string name="hs" value="h5"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="50"/>
-          <int name="mad" value="5"/>
+          <int name="mad" value="10"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -209,7 +209,7 @@
           <string name="hs" value="h6"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="60"/>
-          <int name="mad" value="6"/>
+          <int name="mad" value="12"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -217,7 +217,7 @@
           <string name="hs" value="h7"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="70"/>
-          <int name="mad" value="7"/>
+          <int name="mad" value="14"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -225,7 +225,7 @@
           <string name="hs" value="h8"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="80"/>
-          <int name="mad" value="8"/>
+          <int name="mad" value="16"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -233,7 +233,7 @@
           <string name="hs" value="h9"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="90"/>
-          <int name="mad" value="9"/>
+          <int name="mad" value="18"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -241,7 +241,7 @@
           <string name="hs" value="h10"/>
           <int name="mpCon" value="10"/>
           <int name="time" value="100"/>
-          <int name="mad" value="10"/>
+          <int name="mad" value="20"/>
           <vector name="lt" x="-250" y="-150"/>
           <vector name="rb" x="250" y="150"/>
         </imgdir>
@@ -249,7 +249,7 @@
           <string name="hs" value="h11"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="110"/>
-          <int name="mad" value="11"/>
+          <int name="mad" value="22"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -257,7 +257,7 @@
           <string name="hs" value="h12"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="120"/>
-          <int name="mad" value="12"/>
+          <int name="mad" value="24"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -265,7 +265,7 @@
           <string name="hs" value="h13"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="130"/>
-          <int name="mad" value="13"/>
+          <int name="mad" value="26"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -273,7 +273,7 @@
           <string name="hs" value="h14"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="140"/>
-          <int name="mad" value="14"/>
+          <int name="mad" value="28"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -281,7 +281,7 @@
           <string name="hs" value="h15"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="150"/>
-          <int name="mad" value="15"/>
+          <int name="mad" value="30"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -289,7 +289,7 @@
           <string name="hs" value="h16"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="160"/>
-          <int name="mad" value="16"/>
+          <int name="mad" value="32"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -297,7 +297,7 @@
           <string name="hs" value="h17"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="170"/>
-          <int name="mad" value="17"/>
+          <int name="mad" value="34"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -305,7 +305,7 @@
           <string name="hs" value="h18"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="180"/>
-          <int name="mad" value="18"/>
+          <int name="mad" value="36"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -313,7 +313,7 @@
           <string name="hs" value="h19"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="190"/>
-          <int name="mad" value="19"/>
+          <int name="mad" value="38"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
@@ -321,7 +321,7 @@
           <string name="hs" value="h20"/>
           <int name="mpCon" value="20"/>
           <int name="time" value="200"/>
-          <int name="mad" value="20"/>
+          <int name="mad" value="40"/>
           <vector name="lt" x="-300" y="-200"/>
           <vector name="rb" x="300" y="200"/>
         </imgdir>
