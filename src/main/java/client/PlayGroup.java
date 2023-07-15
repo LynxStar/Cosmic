@@ -238,7 +238,7 @@ public class PlayGroup {
 
     }
 
-    public static void generateRedemptions(Character character, int redeemable) {
+    public static void generateRedemptions(Character character, double redeemable) {
 
         var map = character.getMap();
         var level = character.getLevel();
@@ -271,6 +271,8 @@ public class PlayGroup {
         if(fractionalRoll > fractionalBonus) {
             redeemable++;
         }
+
+        redeemable = Math.floor(redeemable);
 
         log.debug("Performing redemption for {}. Base: {} Bonus: {} Outcome: {}", character.getName(), original, levelBonus, redeemable);
 

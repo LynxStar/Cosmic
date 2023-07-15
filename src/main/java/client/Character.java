@@ -6610,8 +6610,17 @@ public class Character extends AbstractCharacterObject {
         saveCharToDB(true);
         CalculatePlaygroupRates();
 
+        var milestoneRedemptions = level >= 40
+            ? 1
+            : 0
+            ;
+
         if(redeemMode == 1) {
-            PlayGroup.generateRedemptions(this, 1);
+            milestoneRedemptions++;
+        }
+
+        if(milestoneRedemptions > 0) {
+            PlayGroup.generateRedemptions(this, milestoneRedemptions);
         }
 
     }
