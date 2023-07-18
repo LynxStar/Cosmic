@@ -441,6 +441,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
 
             if (newcomer) {
                 player.setLoginTime(System.currentTimeMillis());
+                DailyRewards.recordDailyLogin(player);
             }
         } catch (Exception e) {
             e.printStackTrace();

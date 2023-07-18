@@ -62,6 +62,9 @@ CREATE TABLE IF NOT EXISTS `playgroups` (
   `weight` int(11) NOT NULL DEFAULT '1',
   `exprate` decimal NOT NULL DEFAULT '1.0',
   `droprate` decimal NOT NULL DEFAULT '1.0',
+  `dailyLast` DATE NULL,
+  `dailyEarned` INT NOT NULL DEFAULT '0',
+  `dailyClaimed` INT NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_characterid` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE;
   INDEX (playgroup)
