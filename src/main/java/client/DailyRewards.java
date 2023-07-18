@@ -54,14 +54,14 @@ public class DailyRewards {
             days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         }
 
-        if(days >= 0) {
+        if(days > 0) {
 
             dailyRewards++;
 
             sql = """
                 UPDATE playgroups 
                 SET 
-                    dailyRewards = ?,
+                    dailyEarned = ?,
                     dailyLast = ?
                 WHERE characterid = ?
                 """;
@@ -76,7 +76,9 @@ public class DailyRewards {
 
                 ps.executeUpdate();
             }
-            catch(SQLException e) {}
+            catch(SQLException e)
+            {
+            }
 
         }
 
@@ -117,22 +119,32 @@ public class DailyRewards {
         }
         catch(SQLException e)
         {
+            var foo = 0;
         }
 
         return new Pair<>(dailyRewards, dailyClaimed);
 
     }
 
-    public void claimReward(Character character) {
+    public static void setClaimedRewards(int reward, Character character) {
+        var sql = """
+            UPDATE playgroups 
+            SET dailyClaimed = ? 
+            WHERE characterid = ?
+        """;
 
-        var rewards = getAvailableDayRewards(character);
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql))
+        {
 
-        var available = rewards.getFirst() - rewards.getSecond();
+            var id = character.getId();
 
-        if() {
+            ps.setInt(1, reward);
+            ps.setInt(2, id);
 
+            ps.executeUpdate();
         }
-
+        catch(SQLException e) {}
     }
 
 }

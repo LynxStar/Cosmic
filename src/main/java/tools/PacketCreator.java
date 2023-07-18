@@ -6163,10 +6163,19 @@ public class PacketCreator {
     }
 
     /**
-     * 0 = Levelup 6 = Exp did not drop (Safety Charms) 7 = Enter portal sound
-     * 8 = Job change 9 = Quest complete 10 = Recovery 11 = Buff effect
-     * 14 = Monster book pickup 15 = Equipment levelup 16 = Maker Skill Success
-     * 17 = Buff effect w/ sfx 19 = Exp card [500, 200, 50] 21 = Wheel of destiny
+     * 0 = Levelup
+     * 6 = Exp did not drop (Safety Charms)
+     * 7 = Enter portal sound
+     * 8 = Job change
+     * 9 = Quest complete
+     * 10 = Recovery
+     * 11 = Buff effect
+     * 14 = Monster book pickup
+     * 15 = Equipment levelup
+     * 16 = Maker Skill Success
+     * 17 = Buff effect w/ sfx
+     * 19 = Exp card [500, 200, 50]
+     * 21 = Wheel of destiny
      * 26 = Spirit Stone
      *
      * @param effect

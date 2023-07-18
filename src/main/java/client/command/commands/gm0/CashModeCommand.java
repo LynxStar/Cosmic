@@ -16,7 +16,7 @@ public class CashModeCommand extends Command {
         Character character = client.getPlayer();
 
         if (params.length < 1) {
-            character.yellowMessage("Syntax: !cashmode <on|off>");
+            character.yellowMessage("Syntax: @cashmode <on|off>");
             return;
         }
 

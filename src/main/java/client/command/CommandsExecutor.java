@@ -204,6 +204,7 @@ public class CommandsExecutor {
         addCommand("pg", PlayGroupCommand.class);
         addCommand("redeem", RedeemCommand.class);
         addCommand("cashmode", CashModeCommand.class);
+        addCommand("daily", DailyCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }

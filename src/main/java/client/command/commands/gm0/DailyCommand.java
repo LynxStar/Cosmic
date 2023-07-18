@@ -22,59 +22,103 @@ public class DailyCommand extends Command {
 
         Character character = client.getPlayer();
 
-
-
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE playgroups SET redemptions = ? WHERE characterid = ?"))
-        {
-
-            //ps.setInt(1, redemptions);
-            //ps.setInt(2, id);
-
-            ps.executeUpdate();
-        }
-        catch(SQLException e) {}
-
-    }
-
-    public void claimReward(Character character) {
+        var command = params.length < 1
+            ? "default"
+            : params[0]
+            ;
 
         var rewards = DailyRewards.getAvailableDayRewards(character);
 
         var claimed = rewards.getSecond();
-
         var available = rewards.getFirst() - claimed;
+        var nextReward = (int)claimed + 1;
 
-        var reward = (int)claimed;
-
-        if(available <= 0) {
+        if(command.equals("list")) {
+            listRewards(nextReward, character);
+        }
+        else if (command.equals("claim") && available <= 0) {
             character.yellowMessage("No daily rewards available to claim. Next reward tomorrow.");
         }
+        else if (command.equals("claim")) {
+            claimReward(nextReward, character);
+            sendClaimable(available - 1, character);
+        }
         else {
-            reward++;
+            sendClaimable(available, character);
+
+            character.yellowMessage("Syntax: @daily <list|claim>");
+
+            character.yellowMessage("List: Outputs the next 7 rewards");
+            character.yellowMessage("Claim: Claims the next reward. Must be used multiple times if there are multiple rewards");
+
         }
 
-        listRewards(reward, character);
+    }
+
+    public void sendClaimable(int available, Character character) {
+        if (available > 0) {
+
+            var text = available == 1
+                ? "%d more reward is claimable"
+                : "%d more rewards are claimable"
+                ;
+
+            character.dropMessage(0, String.format(text, available));
+        }
+        else {
+            character.dropMessage(5, String.format("%d no rewards are claimable", available));
+        }
+    }
+
+
+    public void claimReward(int reward, Character character) {
+
+        var cashShop = character.getCashShop();
+
+        cashShop.getCash(1);
+
+        DailyRewards.setClaimedRewards(reward, character);
+
+        rewardDescription(reward, true, character);
 
     }
 
     public void listRewards(int tier, Character character) {
 
-        rewardDescription(tier + 0, character);
-        rewardDescription(tier + 1, character);
-        rewardDescription(tier + 2, character);
-        rewardDescription(tier + 3, character);
-        rewardDescription(tier + 4, character);
+        rewardDescription(tier + 0, false, character);
+        rewardDescription(tier + 1, false,character);
+        rewardDescription(tier + 2, false,character);
+        rewardDescription(tier + 3, false,character);
+        rewardDescription(tier + 4, false,character);
+        rewardDescription(tier + 5, false,character);
+        rewardDescription(tier + 6, false,character);
 
     }
 
-    public void rewardDescription(int tier, Character character) {
+    public void rewardDescription(int tier, boolean earned, Character character) {
 
         //0 notice
         //5 pink
         //6 lightblue
 
-        character.dropMessage(6, String.format("Tier %d: 250 NX", tier));
+        var type = 6;
+        var rewardDesc = "250 NX";
+
+        var action = earned
+            ? "Claimed "
+            : "Tier %d: "
+            ;
+
+        var message = String.format(action + rewardDesc, tier);
+
+        if(type == -1) {
+            character.yellowMessage(message);
+        }
+        else {
+            character.dropMessage(type, message);
+        }
+
+
 
     }
 
