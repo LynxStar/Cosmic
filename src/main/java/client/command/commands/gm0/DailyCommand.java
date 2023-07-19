@@ -66,7 +66,7 @@ public class DailyCommand extends Command {
             character.dropMessage(0, String.format(text, available));
         }
         else {
-            character.dropMessage(5, String.format("%d no rewards are claimable", available));
+            character.dropMessage(5, "No more rewards are claimable");
         }
     }
 
