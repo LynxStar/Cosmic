@@ -75,7 +75,7 @@ public class DailyCommand extends Command {
 
         var cashShop = character.getCashShop();
 
-        cashShop.getCash(1);
+        cashShop.gainCash(1, 250);
 
         DailyRewards.setClaimedRewards(reward, character);
 
