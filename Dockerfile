@@ -23,6 +23,7 @@ RUN mvn -f ./pom.xml clean package -Dmaven.test.skip -T 1C
 #
 FROM eclipse-temurin:17.0.6_10-jre
 
+
 # Host the server in a location that won't have permissions issues.
 WORKDIR /opt/server
 # Copy the wizet files first since they're so big and won't change often.
